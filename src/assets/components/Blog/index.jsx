@@ -6,6 +6,11 @@ import { Link } from "react-router-dom";
 const Blog = () => {
     return(
         <>
+
+            <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin></link>
+            <link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap" rel="stylesheet"></link>
+
             <meta charSet="utf-8" />
             <meta content="width=device-width, initial-scale=1.0" name="viewport" />
             <title>Blog - Skripsi</title>

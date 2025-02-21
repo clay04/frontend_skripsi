@@ -11,5 +11,6 @@ import Values1 from "./values-1.png"
 import Values2 from "./values-2.png"
 import Values3 from "./values-3.png"
 import LogoUK from "./logoUnklab.png"
+import LogoUK1 from "./logoUk1.png"
 
-export{logo, about, altFeatures, heroImg, favicon, appleTouchICon, features, heroBG, Services, Values1, Values2, Values3, LogoUK};
+export{logo, about, altFeatures, heroImg, favicon, appleTouchICon, features, heroBG, Services, Values1, Values2, Values3, LogoUK, LogoUK1};

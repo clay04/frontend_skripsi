@@ -20,7 +20,7 @@ const Header = () => {
     <header id="header" className={`header d-flex align-items-center fixed-top ${scrolled ? "scrolled" : ""}`}>
       <div className="container-fluid container-xl position-relative d-flex align-items-center">
         {/* Logo */}
-        <Link to="/" className="logo d-flex align-items-center me-auto">
+        <Link to="/home" className="logo d-flex align-items-center me-auto">
           <img src={logo} alt="Logo" />
           <h1 className="sitename">SMS</h1>
         </Link>

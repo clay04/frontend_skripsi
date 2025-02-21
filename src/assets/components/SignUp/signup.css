@@ -1,0 +1,103 @@
+/* Container utama menggunakan grid */
+.signup-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100vw;
+    height: 100vh;
+    background: #E0E0E0;
+}
+
+/* Bagian kiri */
+.signup-left {
+    background: #252323;
+    display: grid;
+    place-items: center;
+    text-align: left;
+    padding: 50px;
+    color: white;
+}
+
+.signup-title {
+    font-size: 50px;
+    font-family: 'Onest', sans-serif;
+    font-weight: 500;
+}
+
+.signup-subtitle {
+    font-size: 100px;
+    font-family: 'Onest', sans-serif;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+/* Bagian kanan */
+.signup-right {
+    background: white;
+    display: grid;
+    place-items: center;
+    padding: 50px;
+}
+
+/* Form menggunakan grid */
+.signup-form {
+    display: grid;
+    gap: 15px;
+    width: 80%;
+    max-width: 500px;
+}
+
+/* Header form */
+.signup-header {
+    font-size: 32px;
+    font-family: 'Onest', sans-serif;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Label */
+.signup-label {
+    font-size: 24px;
+    font-family: 'Onest', sans-serif;
+    font-weight: 500;
+}
+
+/* Input field */
+.signup-input {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #878686;
+    border-radius: 10px;
+    padding-left: 15px;
+    font-size: 18px;
+    font-family: 'Onest', sans-serif;
+    font-weight: 300;
+}
+
+/* Hint text */
+.signup-hint {
+    font-size: 14px;
+    font-family: 'Onest', sans-serif;
+    font-weight: 300;
+    color: black;
+    margin-top: -5px;
+}
+
+/* Button */
+.signup-button {
+    width: 100%;
+    height: 50px;
+    background: #657FFF;
+    border-radius: 25px;
+    color: white;
+    font-size: 20px;
+    font-family: 'Onest', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    padding: 10px;
+}
+
+.signup-button:hover {
+    background: #506ECC;
+}
