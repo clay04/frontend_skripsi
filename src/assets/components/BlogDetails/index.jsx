@@ -29,14 +29,11 @@ const BlogDeatails = () => {
             <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
             {/* Main CSS File */}
             <link href="assets/css/main.css" rel="stylesheet" />
-            {/* =======================================================
-            * Template Name: FlexStart
-            * Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
-            * Updated: Nov 01 2024 with Bootstrap v5.3.3
-            * Author: BootstrapMade.com
-            * License: https://bootstrapmade.com/license/
-            ======================================================== */}
-            
+
+            <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin></link>
+            <link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap" rel="stylesheet"></link>
+                    
             <main className="main">
                 {/* Page Title */}
                 <div className="page-title">

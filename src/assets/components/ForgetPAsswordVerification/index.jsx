@@ -8,7 +8,7 @@ import "../../vendor/aos/aos.css";
 import "../../vendor/glightbox/css/glightbox.min.css";
 import "../../vendor/swiper/swiper-bundle.min.css";
 import "../../../App.css";
-import { LogoUK1 } from "../../img";
+import { LogoUK, LogoUK1 } from "../../img";
 import { Link } from "react-router-dom";
 
 const ForgetPasswordVerification = () => {

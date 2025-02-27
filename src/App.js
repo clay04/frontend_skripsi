@@ -18,12 +18,14 @@ import "./assets/vendor/swiper/swiper-bundle.min.css";
 import "./App.css";
 import SignUp from "./assets/components/SignUp";
 import ForgetPassword from "./assets/components/ForgetPassword";
-import ForgetPasswordVerification from "./assets/components/ForgetPAsswordVerification";
+import ForgetPasswordVerification from "./assets/components/ForgetPasswordVerification";
+import { DashboardAdmin, DashboardBidangKemahasiswaan } from "./assets/components";
+
 
 // Komponen Layout Wrapper
 function Layout() {
   const location = useLocation();
-  const hideHeaderPaths = ["/", "/signup", "/forget-password", "/forget-password/verification"]; // Tambahkan path di mana Header disembunyikan
+  const hideHeaderPaths = ["/", "/signup", "/forget-password", "/forget-password/verification","/bidang-dashboard", "/admin-dashboard" ]; // Tambahkan path di mana Header disembunyikan
 
   return (
     <>
@@ -32,10 +34,14 @@ function Layout() {
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
-        <Route path="/forget-password/verification" element={<ForgetPasswordVerification/>} />
+        <Route path="/forget-password/verification" element={<ForgetPasswordVerification />} />
         <Route path="/home" element={<Home />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog-details" element={<BlogDetails />} />
+
+        <Route path="/bidang-dashboard" element={<DashboardBidangKemahasiswaan />} />
+
+        <Route path="/admin-dashboard" element={<DashboardAdmin />} />
       </Routes>
     </>
   );

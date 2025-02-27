@@ -8,19 +8,15 @@ import "../../vendor/aos/aos.css";
 import "../../vendor/glightbox/css/glightbox.min.css";
 import "../../vendor/swiper/swiper-bundle.min.css"
 import "../../../App.css"
-import { about, favicon, features, heroImg, logo, Values1, Values2, Values3 } from "../../img";
+import { about, favicon, features, heroImg, KIPLogo, logo, LogoGenbi, Values1, Values2, Values3 } from "../../img";
 import Blog from "./../Blog";
 import BlogDeatails from "../BlogDetails";
+import { Link } from "react-router-dom";
 
 
 function Home() {
   return (
     <>
-
-        <link rel="preconnect" href="https://fonts.googleapis.com"></link>
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin></link>
-        <link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap" rel="stylesheet"></link>
-
       <meta charSet="utf-8" />
       <meta content="width=device-width, initial-scale=1.0" name="viewport" />
       <title>Skripsi</title>
@@ -36,6 +32,9 @@ function Home() {
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet"
       />
+      <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin></link>
+      <link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap" rel="stylesheet"></link>
 
       <main className="main">
         {/* Hero Section */}
@@ -44,10 +43,10 @@ function Home() {
             <div className="row gy-4">
               <div className="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
                 <h1 data-aos="fade-up">
-                  We offer modern solutions for growing your business
+                  System Information Scholarship Management
                 </h1>
                 <p data-aos="fade-up" data-aos-delay={100}>
-                  We are team of talented designers making websites with Bootstrap
+                  -
                 </p>
                 <div
                   className="d-flex flex-column flex-md-row"
@@ -90,25 +89,20 @@ function Home() {
                 data-aos-delay={200}
               >
                 <div className="content">
-                  <h3>Who We Are</h3>
                   <h2>
-                    Expedita voluptas omnis cupiditate totam eveniet nobis sint
-                    iste. Dolores est repellat corrupti reprehenderit.
+                    Apa itu Sistem Informasi Manajemen Beasiswa?
                   </h2>
                   <p>
-                    Quisquam vel ut sint cum eos hic dolores aperiam. Sed deserunt
-                    et. Inventore et et dolor consequatur itaque ut voluptate sed
-                    et. Magnam nam ipsum tenetur suscipit voluptatum nam et est
-                    corrupti.
+                    Sistem Informasi Manajemen Beasiswa adalah sistem berbasis teknologi yang dirancang untuk mengelola seluruh proses terkait beasiswa, mulai dari pendaftaran, seleksi, hingga pencairan dana dan pelaporan.
                   </p>
                   <div className="text-center text-lg-start">
-                    <a
-                      href="#"
+                    <Link
+                      to="/about"
                       className="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center"
                     >
                       <span>Read More</span>
                       <i className="bi bi-arrow-right" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -129,42 +123,29 @@ function Home() {
           <div className="container section-title" data-aos="fade-up">
             <h2>Our Values</h2>
             <p>
-              What we value most
+              Beasiswa yang tersedia
               <br />
             </p>
           </div>
           {/* End Section Title */}
-          <div className="container">
+          <div className="card-container container">
             <div className="row gy-4">
-              <div className="col-lg-4" data-aos="fade-up" data-aos-delay={100}>
-                <div className="card">
-                  <img src={Values1} className="img-fluid" alt="" />
-                  <h3>Ad cupiditate sed est odio</h3>
-                  <p>
-                    Eum ad dolor et. Autem aut fugiat debitis voluptatem
-                    consequuntur sit. Et veritatis id.
-                  </p>
-                </div>
-              </div>
-              {/* End Card Item */}
               <div className="col-lg-4" data-aos="fade-up" data-aos-delay={200}>
                 <div className="card">
-                  <img src={Values2} className="img-fluid" alt="" />
-                  <h3>Voluptatem voluptatum alias</h3>
+                  <img src={KIPLogo} className="img-fluid" alt="" />
+                  <h3>Kartu Indonesia Pintar <br />(KIP) Kuliah</h3>
                   <p>
-                    Repudiandae amet nihil natus in distinctio suscipit id.
-                    Doloremque ducimus ea sit non.
+                    (KIP) Kuliah adalah program bantuan biaya pendidikan yang disediakan oleh pemerintah Indonesia.
                   </p>
                 </div>
               </div>
               {/* End Card Item */}
               <div className="col-lg-4" data-aos="fade-up" data-aos-delay={300}>
                 <div className="card">
-                  <img src={Values3} className="img-fluid" alt="" />
-                  <h3>Fugit cupiditate alias nobis.</h3>
+                  <img src={LogoGenbi} className="img-fluid" alt="" />
+                  <h3>Generasi Baru Indonesia <br /> (GenBI)</h3>
                   <p>
-                    Quam rem vitae est autem molestias explicabo debitis sint. Vero
-                    aliquid quidem commodi.
+                    Beasiswa GenBI adalah program beasiswa yang diselenggarakan oleh Bank Indonesia (BI).
                   </p>
                 </div>
               </div>
@@ -174,81 +155,7 @@ function Home() {
         </section>
         {/* /Values Section */}
         {/* Stats Section */}
-        <section id="stats" className="stats section">
-          <div className="container" data-aos="fade-up" data-aos-delay={100}>
-            <div className="row gy-4">
-              <div className="col-lg-3 col-md-6">
-                <div className="stats-item d-flex align-items-center w-100 h-100">
-                  <i className="bi bi-emoji-smile color-blue flex-shrink-0" />
-                  <div>
-                    <span
-                      data-purecounter-start={0}
-                      data-purecounter-end={232}
-                      data-purecounter-duration={1}
-                      className="purecounter"
-                    />
-                    <p>Happy Clients</p>
-                  </div>
-                </div>
-              </div>
-              {/* End Stats Item */}
-              <div className="col-lg-3 col-md-6">
-                <div className="stats-item d-flex align-items-center w-100 h-100">
-                  <i
-                    className="bi bi-journal-richtext color-orange flex-shrink-0"
-                    style={{ color: "#ee6c20" }}
-                  />
-                  <div>
-                    <span
-                      data-purecounter-start={0}
-                      data-purecounter-end={521}
-                      data-purecounter-duration={1}
-                      className="purecounter"
-                    />
-                    <p>Projects</p>
-                  </div>
-                </div>
-              </div>
-              {/* End Stats Item */}
-              <div className="col-lg-3 col-md-6">
-                <div className="stats-item d-flex align-items-center w-100 h-100">
-                  <i
-                    className="bi bi-headset color-green flex-shrink-0"
-                    style={{ color: "#15be56" }}
-                  />
-                  <div>
-                    <span
-                      data-purecounter-start={0}
-                      data-purecounter-end={1463}
-                      data-purecounter-duration={1}
-                      className="purecounter"
-                    />
-                    <p>Hours Of Support</p>
-                  </div>
-                </div>
-              </div>
-              {/* End Stats Item */}
-              <div className="col-lg-3 col-md-6">
-                <div className="stats-item d-flex align-items-center w-100 h-100">
-                  <i
-                    className="bi bi-people color-pink flex-shrink-0"
-                    style={{ color: "#bb0852" }}
-                  />
-                  <div>
-                    <span
-                      data-purecounter-start={0}
-                      data-purecounter-end={15}
-                      data-purecounter-duration={1}
-                      className="purecounter"
-                    />
-                    <p>Hard Workers</p>
-                  </div>
-                </div>
-              </div>
-              {/* End Stats Item */}
-            </div>
-          </div>
-        </section>
+        
         {/* /Stats Section */}
         {/* Features Section */}
         <section id="features" className="features section">
@@ -536,127 +443,7 @@ function Home() {
         </section>
         {/* /Services Section */}
         {/* Pricing Section */}
-        <section id="pricing" className="pricing section">
-          {/* Section Title */}
-          <div className="container section-title" data-aos="fade-up">
-            <h2>Pricing</h2>
-            <p>
-              Check Our Affordable Pricing
-              <br />
-            </p>
-          </div>
-          {/* End Section Title */}
-          <div className="container">
-            <div className="row gy-4">
-              <div
-                className="col-lg-3 col-md-6"
-                data-aos="zoom-in"
-                data-aos-delay={100}
-              >
-                <div className="pricing-tem">
-                  <h3 style={{ color: "#20c997" }}>Free Plan</h3>
-                  <div className="price">
-                    <sup>$</sup>0<span> / mo</span>
-                  </div>
-                  <div className="icon">
-                    <i className="bi bi-box" style={{ color: "#20c997" }} />
-                  </div>
-                  <ul>
-                    <li>Aida dere</li>
-                    <li>Nec feugiat nisl</li>
-                    <li>Nulla at volutpat dola</li>
-                    <li className="na">Pharetra massa</li>
-                    <li className="na">Massa ultricies mi</li>
-                  </ul>
-                  <a href="#" className="btn-buy">
-                    Buy Now
-                  </a>
-                </div>
-              </div>
-              {/* End Pricing Item */}
-              <div
-                className="col-lg-3 col-md-6"
-                data-aos="zoom-in"
-                data-aos-delay={200}
-              >
-                <div className="pricing-tem">
-                  <span className="featured">Featured</span>
-                  <h3 style={{ color: "#0dcaf0" }}>Starter Plan</h3>
-                  <div className="price">
-                    <sup>$</sup>19<span> / mo</span>
-                  </div>
-                  <div className="icon">
-                    <i className="bi bi-send" style={{ color: "#0dcaf0" }} />
-                  </div>
-                  <ul>
-                    <li>Aida dere</li>
-                    <li>Nec feugiat nisl</li>
-                    <li>Nulla at volutpat dola</li>
-                    <li>Pharetra massa</li>
-                    <li className="na">Massa ultricies mi</li>
-                  </ul>
-                  <a href="#" className="btn-buy">
-                    Buy Now
-                  </a>
-                </div>
-              </div>
-              {/* End Pricing Item */}
-              <div
-                className="col-lg-3 col-md-6"
-                data-aos="zoom-in"
-                data-aos-delay={300}
-              >
-                <div className="pricing-tem">
-                  <h3 style={{ color: "#fd7e14" }}>Business Plan</h3>
-                  <div className="price">
-                    <sup>$</sup>29<span> / mo</span>
-                  </div>
-                  <div className="icon">
-                    <i className="bi bi-airplane" style={{ color: "#fd7e14" }} />
-                  </div>
-                  <ul>
-                    <li>Aida dere</li>
-                    <li>Nec feugiat nisl</li>
-                    <li>Nulla at volutpat dola</li>
-                    <li>Pharetra massa</li>
-                    <li>Massa ultricies mi</li>
-                  </ul>
-                  <a href="#" className="btn-buy">
-                    Buy Now
-                  </a>
-                </div>
-              </div>
-              {/* End Pricing Item */}
-              <div
-                className="col-lg-3 col-md-6"
-                data-aos="zoom-in"
-                data-aos-delay={400}
-              >
-                <div className="pricing-tem">
-                  <h3 style={{ color: "#0d6efd" }}>Ultimate Plan</h3>
-                  <div className="price">
-                    <sup>$</sup>49<span> / mo</span>
-                  </div>
-                  <div className="icon">
-                    <i className="bi bi-rocket" style={{ color: "#0d6efd" }} />
-                  </div>
-                  <ul>
-                    <li>Aida dere</li>
-                    <li>Nec feugiat nisl</li>
-                    <li>Nulla at volutpat dola</li>
-                    <li>Pharetra massa</li>
-                    <li>Massa ultricies mi</li>
-                  </ul>
-                  <a href="#" className="btn-buy">
-                    Buy Now
-                  </a>
-                </div>
-              </div>
-              {/* End Pricing Item */}
-            </div>
-            {/* End pricing row */}
-          </div>
-        </section>
+        
         {/* /Pricing Section */}
         {/* Faq Section */}
         <section id="faq" className="faq section">
@@ -1486,211 +1273,8 @@ function Home() {
         </section>
         {/* /Team Section */}
         {/* Clients Section */}
-        <section id="clients" className="clients section">
-          {/* Section Title */}
-          <div className="container section-title" data-aos="fade-up">
-            <h2>Clients</h2>
-            <p>
-              We work with best clients
-              <br />
-            </p>
-          </div>
-          {/* End Section Title */}
-          <div className="container" data-aos="fade-up" data-aos-delay={100}>
-            <div className="swiper init-swiper">
-              <div className="swiper-wrapper align-items-center">
-                <div className="swiper-slide">
-                  <img
-                    src="assets/img/clients/client-1.png"
-                    className="img-fluid"
-                    alt=""
-                  />
-                </div>
-                <div className="swiper-slide">
-                  <img
-                    src="assets/img/clients/client-2.png"
-                    className="img-fluid"
-                    alt=""
-                  />
-                </div>
-                <div className="swiper-slide">
-                  <img
-                    src="assets/img/clients/client-3.png"
-                    className="img-fluid"
-                    alt=""
-                  />
-                </div>
-                <div className="swiper-slide">
-                  <img
-                    src="assets/img/clients/client-4.png"
-                    className="img-fluid"
-                    alt=""
-                  />
-                </div>
-                <div className="swiper-slide">
-                  <img
-                    src="assets/img/clients/client-5.png"
-                    className="img-fluid"
-                    alt=""
-                  />
-                </div>
-                <div className="swiper-slide">
-                  <img
-                    src="assets/img/clients/client-6.png"
-                    className="img-fluid"
-                    alt=""
-                  />
-                </div>
-                <div className="swiper-slide">
-                  <img
-                    src="assets/img/clients/client-7.png"
-                    className="img-fluid"
-                    alt=""
-                  />
-                </div>
-                <div className="swiper-slide">
-                  <img
-                    src="assets/img/clients/client-8.png"
-                    className="img-fluid"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <div className="swiper-pagination" />
-            </div>
-          </div>
-        </section>
-        {/* /Clients Section */}
+
         {/* Recent Posts Section */}
-
-        <Blog />
-
-        <section id="recent-posts" className="recent-posts section">
-          {/* Section Title */}
-          <div className="container section-title" data-aos="fade-up">
-            <h2>Recent Posts</h2>
-            <p>Recent posts form our Blog</p>
-          </div>
-          {/* End Section Title */}
-          <div className="container">
-            <div className="row gy-5">
-              <div className="col-xl-4 col-md-6">
-                <div
-                  className="post-item position-relative h-100"
-                  data-aos="fade-up"
-                  data-aos-delay={100}
-                >
-                  <div className="post-img position-relative overflow-hidden">
-                    <img
-                      src="assets/img/blog/blog-1.jpg"
-                      className="img-fluid"
-                      alt=""
-                    />
-                    <span className="post-date">December 12</span>
-                  </div>
-                  <div className="post-content d-flex flex-column">
-                    <h3 className="post-title">
-                      Eum ad dolor et. Autem aut fugiat debitis
-                    </h3>
-                    <div className="meta d-flex align-items-center">
-                      <div className="d-flex align-items-center">
-                        <i className="bi bi-person" />{" "}
-                        <span className="ps-2">Julia Parker</span>
-                      </div>
-                      <span className="px-3 text-black-50">/</span>
-                      <div className="d-flex align-items-center">
-                        <i className="bi bi-folder2" />{" "}
-                        <span className="ps-2">Politics</span>
-                      </div>
-                    </div>
-                    <hr />
-                    <a href={BlogDeatails} className="readmore stretched-link">
-                      <span>Read More</span>
-                      <i className="bi bi-arrow-right" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-              {/* End post item */}
-              <div className="col-xl-4 col-md-6">
-                <div
-                  className="post-item position-relative h-100"
-                  data-aos="fade-up"
-                  data-aos-delay={200}
-                >
-                  <div className="post-img position-relative overflow-hidden">
-                    <img
-                      src="assets/img/blog/blog-2.jpg"
-                      className="img-fluid"
-                      alt=""
-                    />
-                    <span className="post-date">July 17</span>
-                  </div>
-                  <div className="post-content d-flex flex-column">
-                    <h3 className="post-title">
-                      Et repellendus molestiae qui est sed omnis
-                    </h3>
-                    <div className="meta d-flex align-items-center">
-                      <div className="d-flex align-items-center">
-                        <i className="bi bi-person" />{" "}
-                        <span className="ps-2">Mario Douglas</span>
-                      </div>
-                      <span className="px-3 text-black-50">/</span>
-                      <div className="d-flex align-items-center">
-                        <i className="bi bi-folder2" />{" "}
-                        <span className="ps-2">Sports</span>
-                      </div>
-                    </div>
-                    <hr />
-                    <a href={BlogDeatails} className="readmore stretched-link">
-                      <span>Read More</span>
-                      <i className="bi bi-arrow-right" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-              {/* End post item */}
-              <div
-                className="col-xl-4 col-md-6"
-                data-aos="fade-up"
-                data-aos-delay={300}
-              >
-                <div className="post-item position-relative h-100">
-                  <div className="post-img position-relative overflow-hidden">
-                    <img
-                      src="assets/img/blog/blog-3.jpg"
-                      className="img-fluid"
-                      alt=""
-                    />
-                    <span className="post-date">September 05</span>
-                  </div>
-                  <div className="post-content d-flex flex-column">
-                    <h3 className="post-title">
-                      Quia assumenda est et veritati tirana ploder
-                    </h3>
-                    <div className="meta d-flex align-items-center">
-                      <div className="d-flex align-items-center">
-                        <i className="bi bi-person" />{" "}
-                        <span className="ps-2">Lisa Hunter</span>
-                      </div>
-                      <span className="px-3 text-black-50">/</span>
-                      <div className="d-flex align-items-center">
-                        <i className="bi bi-folder2" />{" "}
-                        <span className="ps-2">Economics</span>
-                      </div>
-                    </div>
-                    <hr />
-                    <a href="blog-details.html" className="readmore stretched-link">
-                      <span>Read More</span>
-                      <i className="bi bi-arrow-right" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-              {/* End post item */}
-            </div>
-          </div>
-        </section>
         {/* /Recent Posts Section */}
         {/* Contact Section */}
         <section id="contact" className="contact section">
@@ -1838,7 +1422,7 @@ function Home() {
           <div className="row gy-4">
             <div className="col-lg-4 col-md-6 footer-about">
               <a href="App.js" className="d-flex align-items-center">
-                <span className="sitename">FlexStart</span>
+                <span className="sitename">Scholarship Management System</span>
               </a>
               <div className="footer-contact pt-3">
                 <p>A108 Adam Street</p>
@@ -1901,8 +1485,8 @@ function Home() {
                 <a href="">
                   <i className="bi bi-facebook" />
                 </a>
-                <a href="">
-                  <i className="bi bi-instagram" />
+                <a href="https://www.instagram.com/loveniamendes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
+                  <i className="bi bi-instagram"/>
                 </a>
                 <a href="">
                   <i className="bi bi-linkedin" />

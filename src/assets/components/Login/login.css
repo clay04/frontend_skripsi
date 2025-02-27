@@ -24,7 +24,7 @@
   /* ===== Kotak Login ===== */
   .login-box {
     width: 600px;
-    height: 670px;
+    height: 650px;
     background: white;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
@@ -148,11 +148,12 @@
     border-radius: 25px;
     position: absolute;
     left: 74px;
-    top: 167px;
+    top: 145px;
     padding: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.25);
   }
   
   .welcome-box h1 {

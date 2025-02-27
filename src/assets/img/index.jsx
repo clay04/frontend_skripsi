@@ -12,5 +12,9 @@ import Values2 from "./values-2.png"
 import Values3 from "./values-3.png"
 import LogoUK from "./logoUnklab.png"
 import LogoUK1 from "./logoUk1.png"
+import LogoGenbi from "./Logo Genbi 1.png"
+import KIPLogo from "./KIP.png"
 
-export{logo, about, altFeatures, heroImg, favicon, appleTouchICon, features, heroBG, Services, Values1, Values2, Values3, LogoUK, LogoUK1};
+export{logo, about, altFeatures, heroImg, favicon, appleTouchICon, features, 
+        heroBG, Services, Values1, Values2, Values3, LogoUK, LogoUK1, LogoGenbi,
+        KIPLogo};
