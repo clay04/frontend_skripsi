@@ -14,7 +14,9 @@ import LogoUK from "./logoUnklab.png"
 import LogoUK1 from "./logoUk1.png"
 import LogoGenbi from "./Logo Genbi 1.png"
 import KIPLogo from "./KIP.png"
+import ScholarshipLogo from "./National-Overseas-Scholarship-image.png"
+import ScholarshipBanner from "./hero_banner_image_-_kuncie_scholarship_management_-_1920x900pt.png"
 
 export{logo, about, altFeatures, heroImg, favicon, appleTouchICon, features, 
         heroBG, Services, Values1, Values2, Values3, LogoUK, LogoUK1, LogoGenbi,
-        KIPLogo};
+        KIPLogo, ScholarshipLogo, ScholarshipBanner};
