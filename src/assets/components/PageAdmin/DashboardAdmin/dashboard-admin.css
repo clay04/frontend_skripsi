@@ -2,7 +2,7 @@
 
 .container-dashboard-admin {
   display: grid;
-  grid-template-columns: 402px 1fr;
+  grid-template-columns: 352px 1fr;
   grid-template-rows: auto 1fr;
   grid-template-areas: 
     "header header"
@@ -49,6 +49,8 @@
   padding: 14px 25px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  height: 40px;
+  width: 90%;
 }
 
 .menuItem-dashboard-admin:hover {
@@ -61,7 +63,7 @@
 
 .menuText-dashboard-admin {
   color: black;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -70,12 +72,15 @@
   color: white;
   border: none;
   border-radius: 30px;
-  padding: 14px 50px;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 700;
   cursor: pointer;
   transition: background-color 0.3s ease;
   align-self: center;
+  width: 80%;
+  height: 40px;
+  text-align: center;
+  padding: 5px;
 }
 
 .logoutButton-dashboard-admin:hover {
@@ -85,7 +90,7 @@
 .mainContent-dashboard-admin {
   grid-area: main;
   display: grid;
-  grid-template-columns: repeat(3, 1fr) 389px;
+  grid-template-columns: 1fr 302px;
   gap: 20px;
   padding: 20px;
 }
@@ -94,6 +99,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  height: 100px;
 }
 
 .statCard-dashboard-admin {
@@ -109,6 +115,16 @@
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.statContent-dashboard-admin {
+  display: flex;
+  flex: auto;
+  flex-direction: row;
+  justify-content:space-around;
+  align-items: baseline;
 }
 
 .statValue-dashboard-admin { 
@@ -149,4 +165,115 @@
   color: black;
   font-size: 16px;
   font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .container-dashboard-admin {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas: 
+      "header"
+      "sidebar"
+      "main";
+  }
+
+  .sidebar-dashboard-admin {
+    padding: 10px;
+  }
+
+  .menuItem-dashboard-admin {
+    width: 100%;
+    padding: 10px;
+    justify-content: center;
+  }
+
+  .logoutButton-dashboard-admin {
+    width: 100%;
+  }
+
+  .mainContent-dashboard-admin {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .statsContainer-dashboard-admin {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .statCard-dashboard-admin {
+    padding: 15px;
+  }
+
+  .onlineUsersPanel-dashboard-admin {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .menuButton {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+  }
+
+  .sidebar-dashboard-admin {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+
+  .sidebar-dashboard-admin.open {
+    left: 0;
+  }
+}
+
+/* Tombol menu hanya muncul di perangkat mobile */
+.menuButton {
+  display: none; /* Default disembunyikan */
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .menuButton {
+    display: block; /* Muncul hanya di mobile */
+  }
+
+  .container-dashboard-admin {
+    grid-template-columns: 1fr; 
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      "header"
+      "main";
+  }
+
+  .sidebar-dashboard-admin {
+    position: fixed;
+    left: -100%; /* Sembunyikan sidebar awalnya */
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+
+  .sidebar-dashboard-admin.open {
+    left: 0; /* Sidebar muncul saat tombol ditekan */
+  }
 }

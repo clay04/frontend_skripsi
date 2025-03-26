@@ -7,10 +7,9 @@ import "../../vendor/bootstrap/css/bootstrap-grid.css"
 import "../../vendor/aos/aos.css";
 import "../../vendor/glightbox/css/glightbox.min.css";
 import "../../vendor/swiper/swiper-bundle.min.css"
-import "../../../App.css"
-import { about, favicon, features, heroImg, KIPLogo, logo, LogoGenbi, Values1, Values2, Values3, ScholarshipLogo, ScholarshipBanner } from "../../img";
-import Blog from "./../Blog";
-import BlogDeatails from "../BlogDetails";
+import "./home.css";
+import "../../../App.css";
+import { favicon, KIPLogo, LogoGenbi, ScholarshipLogo, ScholarshipBanner } from "../../img";
 import { Link } from "react-router-dom";
 
 
@@ -19,7 +18,7 @@ function Home() {
     <>
       <meta charSet="utf-8" />
       <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-      <title>Skripsi</title>
+      <title>Scholar Management System</title>
       <meta name="description" content="" />
       <meta name="keywords" content="" />
       {/* Favicons */}
@@ -130,7 +129,7 @@ function Home() {
           {/* End Section Title */}
           <div className="card-container container">
             <div className="row gy-4">
-              <div className="col-lg-4" data-aos="fade-up" data-aos-delay={200}>
+              <Link to="/info/kipkuliah" className="col-lg-4" data-aos="fade-up" data-aos-delay={200}>
                 <div className="card">
                   <img src={KIPLogo} className="img-fluid" alt="" />
                   <h3>Kartu Indonesia Pintar <br />(KIP) Kuliah</h3>
@@ -138,9 +137,9 @@ function Home() {
                     (KIP) Kuliah adalah program bantuan biaya pendidikan yang disediakan oleh pemerintah Indonesia.
                   </p>
                 </div>
-              </div>
+              </Link>
               {/* End Card Item */}
-              <div className="col-lg-4" data-aos="fade-up" data-aos-delay={300}>
+              <Link className="col-lg-4" data-aos="fade-up" data-aos-delay={300} to="/info/genbi">
                 <div className="card">
                   <img src={LogoGenbi} className="img-fluid" alt="" />
                   <h3>Generasi Baru Indonesia <br /> (GenBI)</h3>
@@ -148,7 +147,7 @@ function Home() {
                     Beasiswa GenBI adalah program beasiswa yang diselenggarakan oleh Bank Indonesia (BI).
                   </p>
                 </div>
-              </div>
+              </Link>
               {/* End Card Item */}
             </div>
           </div>
@@ -636,8 +635,7 @@ function Home() {
                       <i className="bi bi-geo-alt" />
                       <h3>Address</h3>
                         <p>Jl. Arnold Mononutu</p>
-                        <p>Airmadidi Bawah</p>
-                        <p>Kec. Airmadidi, Minahasa Utara</p>
+                        <p>Airmadidi, Minahasa Utara</p>
                         <p>Sulawesi Utara 95371</p>
                     </div>
                   </div>
@@ -742,8 +740,8 @@ function Home() {
                 <span className="sitename">Universitas Klabat</span>
               </a>
               <div className="footer-contact pt-3">
-                <p>Jl. Arnold Mononutu, Airmadidi Bawah</p>
-                <p>Kec. Airmadidi, Kabupaten Minahasa Utara</p>
+                <p>Jl. Arnold Mononutuh</p>
+                <p>Airmadidi, Minahasa Utara</p>
                 <p>Sulawesi Utara 95371</p>
                 <p className="mt-3">
                   <strong>Phone:</strong> <span>+1 5589 55488 55</span>

@@ -38,7 +38,7 @@ const SignUp = () => {
                             Password minimal harus 8 karakter sudah termasuk huruf besar, huruf kecil, dan angka
                         </div>
 
-                        <Link to="/" className="signup-button">Melanjutkan</Link>
+                        <Link to="/login" className="signup-button">Melanjutkan</Link>
                     </div>
                 </div>
             </div>
