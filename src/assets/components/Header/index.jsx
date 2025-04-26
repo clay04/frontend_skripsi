@@ -54,89 +54,14 @@ const Header = () => {
           <a href="#" className="logo d-flex align-items-center me-auto">
             {/* Uncomment the line below if you also wish to use an image logo */}
             <img src={LogoUK1}alt="" />
-            <h1 className="sitename">SMS</h1>
+            <h1 className="sitename">Scholarship Management System</h1>
           </a>
           <nav id="navmenu" className="navmenu">
             <ul>
               <li><Link to="/home" className={isActive("/home"), "active"}>Home</Link></li>
-              <li><Link to="/about" className={isActive("/about")}>About</Link></li>
-              <li><Link to="/services" className={isActive("/services")}>Services</Link></li>
-              <li><Link to="/portfolio" className={isActive("/portfolio")}>Portfolio</Link></li>
-              <li><Link to="/team" className={isActive("/team")}>Team</Link></li>
-              <li><Link to="/blog" className={isActive("/blog")}>Blog</Link></li>
-              <li className="dropdown">
-                <a href="#"><span>Dropdown</span>{" "}<i className="bi bi-chevron-down toggle-dropdown" /></a>
-                <ul>
-                  <li><a href="#">Dropdown 1</a></li>
-                  <li className="dropdown"><a href="#">
-                    <span>Deep Dropdown</span>{" "}
-                      <i className="bi bi-chevron-down toggle-dropdown" />
-                    </a>
-                    <ul>
-                      <li>
-                        <a href="#">Deep Dropdown 1</a>
-                      </li>
-                      <li>
-                        <a href="#">Deep Dropdown 2</a>
-                      </li>
-                      <li>
-                        <a href="#">Deep Dropdown 3</a>
-                      </li>
-                      <li>
-                        <a href="#">Deep Dropdown 4</a>
-                      </li>
-                      <li>
-                        <a href="#">Deep Dropdown 5</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="#">Dropdown 2</a>
-                  </li>
-                  <li>
-                    <a href="#">Dropdown 3</a>
-                  </li>
-                  <li>
-                    <a href="#">Dropdown 4</a>
-                  </li>
-                </ul>
-              </li>
-              <li className="listing-dropdown">
-                <a href="#">
-                  <span>Listing Dropdown</span>{" "}
-                  <i className="bi bi-chevron-down toggle-dropdown" />
-                </a>
-                <ul>
-                  <li>
-                    <a href="#">Column 1 link 1</a>
-                    <a href="#">Column 1 link 2</a>
-                    <a href="#">Column 1 link 3</a>
-                  </li>
-                  <li>
-                    <a href="#">Column 2 link 1</a>
-                    <a href="#">Column 2 link 2</a>
-                    <a href="#">Column 3 link 3</a>
-                  </li>
-                  <li>
-                    <a href="#">Column 3 link 1</a>
-                    <a href="#">Column 3 link 2</a>
-                    <a href="#">Column 3 link 3</a>
-                  </li>
-                  <li>
-                    <a href="#">Column 4 link 1</a>
-                    <a href="#">Column 4 link 2</a>
-                    <a href="#">Column 4 link 3</a>
-                  </li>
-                  <li>
-                    <a href="#">Column 5 link 1</a>
-                    <a href="#">Column 5 link 2</a>
-                    <a href="#">Column 5 link 3</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="#contact">Contact</a>
-              </li>
+              <li><a href="#services" className={isActive("#services")}>About</a></li>
+              <li><Link to="/mahasiswa/dashboard" className={isActive("/dashboard/mahasiswa")}>Dashboard</Link></li>   
+              {user && <li><p>{user.username}</p></li>}
             </ul>
             <i className="mobile-nav-toggle d-xl-none bi bi-list" onClick={ToggleButton}/>
           </nav>
@@ -149,7 +74,7 @@ const Header = () => {
                 <div className="profile-dropdown position-absolute bg-white shadow rounded p-2" style={{ top: '100%', right: 0, zIndex: 1000., width: "200px" }}>
                   <p className="profile-name">{user.username}</p>
                   <Link to="/login" onClick={handleLogout} className="d-block">Logout</Link>
-                  <Link to="/profile" className="d-block">Profile</Link>
+                  <Link to="/mahasiswa/profile" className="d-block">Profile</Link>
                 </div>
               )}
             </div>

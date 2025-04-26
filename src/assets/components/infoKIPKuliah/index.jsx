@@ -1,26 +1,36 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./infokipkuliah.module.css";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import { KIPLogo } from "../../img";
 
 function InfoKIPKuliah() {
+    const navigate = useNavigate();
+    const { isLoggedIn } = useContext(AuthContext); // asumsi kamu simpan status login di AuthContext
+
+    const handleRegisterClick = () => {
+        if (isLoggedIn) {
+            navigate("/beasiswa/kip/form-pendaftaran");
+        } else {
+            console.error("User is not logged in. Redirecting to login page.");
+            navigate("/login");
+        }
+    };
   return (
     <>
         <div className={styles.container}>
             <main className={styles.mainContent}>
-                <section className={styles.programHeader}>
-                    <img
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/b33f6be9a89a152e217052e0a0e432bf1a0b9e2c?placeholderIfAbsent=true"
-                        alt="KIP Kuliah Logo"
-                        className={styles.programLogo}
-                    />
-                    <div className={styles.programInfo}>
-                        <h2 className={styles.programTitle}>
-                        Kartu Indonesia Pintar (KIP Kuliah)
-                        </h2>
-                        <div className={styles.buttonContainer}>
-                        <button className={styles.registerButton}>Daftar</button>
-                        </div>
-                    </div>
-                </section>
+            <section className={styles.headerSection}>
+                <img
+                src={KIPLogo}
+                alt="Genbi Logo"
+                className={styles.programLogo}
+                />
+                <h2 className={styles.mainTitle}>Generasi Baru Indonesia</h2>
+                <button onClick={handleRegisterClick} className={styles.registerButton}>
+                    Daftar
+                </button>
+            </section>
 
                 <section className={styles.requirementsSection}>
                     <h3 className={styles.requirementsTitle}>

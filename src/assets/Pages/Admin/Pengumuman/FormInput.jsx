@@ -1,0 +1,34 @@
+"use client";
+import React from "react";
+
+function FormInput({ label, placeholder, icon, multiline, height }) {
+  return (
+    <div className="mb-3">
+      {label && <label className="form-label fw-semibold">{label}</label>}
+      <div className="input-group">
+        {multiline ? (
+          <textarea
+            className="form-control"
+            placeholder={placeholder}
+            style={{ height: height || "100px" }}
+          />
+        ) : (
+          <>
+            <input
+              type="text"
+              className="form-control"
+              placeholder={placeholder}
+            />
+            {icon && (
+              <span className="input-group-text">
+                <img src={icon} alt="" style={{ width: "16px" }} />
+              </span>
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default FormInput;

@@ -26,6 +26,9 @@
 }
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
+.main {
+  margin-top: 50px;
+}
 
 .light-background {
   --background-color: #f9f9f9;
@@ -58,6 +61,7 @@ a {
   color: var(--accent-color);
   text-decoration: none;
   transition: 0.3s;
+  font-family: "Onest", serif;
 }
 
 a:hover {
@@ -135,7 +139,7 @@ h6 {
   width: 100%;
   top: 0;
   left: 0;
-  padding: 20px 0;
+  padding: 7px 0;
   background-color: var(--background-color);
   color: var(--default-color);
   transition: all 0.4s ease-in-out;
@@ -144,6 +148,7 @@ h6 {
   flex: content;
   flex-wrap: wrap; 
   z-index: 997;
+  box-shadow: 0px 4px 4px rgba(149, 140, 140, 0.25);
 }
 
 .containerheader {
@@ -203,7 +208,7 @@ h6 {
 }
 
 .header .navmenu ul li a:hover,
-.header .navmenu ul li a.active {
+.header .navmenu ul li .active-link {
   color: var(--accent-color);
 }
 
@@ -605,8 +610,8 @@ h6 {
 # Global Footer
 --------------------------------------------------------------*/
 .footer {
-  color: var(--default-color);
-  background-color: var(--background-color);
+  color: var(--contrast-color);
+  background-color: var(--accent-color);
   font-size: 14px;
   padding-bottom: 50px;
   position: relative;
@@ -681,7 +686,7 @@ h6 {
   background-color: color-mix(in srgb, var(--accent-color), transparent 97%);
   border: 1px solid color-mix(in srgb, var(--accent-color), transparent 85%);
   font-size: 16px;
-  color: var(--accent-color);
+  color: var(--contrast-color);
   margin-right: 10px;
   transition: 0.3s;
 }
@@ -696,6 +701,7 @@ h6 {
   font-weight: bold;
   position: relative;
   padding-bottom: 12px;
+  color: var(--contrast-color);
 }
 
 .footer .footer-links {
@@ -712,7 +718,7 @@ h6 {
   margin-right: 3px;
   font-size: 12px;
   line-height: 0;
-  color: var(--accent-color);
+  color: var(--contrast-color);
 }
 
 .footer .footer-links ul li {
@@ -727,12 +733,12 @@ h6 {
 
 .footer .footer-links ul a {
   display: inline-block;
-  color: color-mix(in srgb, var(--default-color), transparent 20%);
+  color: color-mix(in srgb, var(--contrast-color), transparent 20%);
   line-height: 1;
 }
 
 .footer .footer-links ul a:hover {
-  color: var(--accent-color);
+  color: var(--contrast-color);
 }
 
 .footer .footer-about a {
@@ -1076,6 +1082,14 @@ section,
   transition: 0.3s;
   height: 100%;
   border: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .values .card img {
@@ -1136,6 +1150,10 @@ section,
   box-shadow: 0px 0 30px rgba(0, 0, 0, 0.1);
   transition: 0.3s;
   height: 100%;
+  border-radius: 5px;
+  width: 1300px;
+  max-width: 1920px;
+  justify-content: space-around;
 }
 
 .features .feature-box h3 {
@@ -1145,17 +1163,15 @@ section,
 }
 
 .features .feature-box i {
-  background: color-mix(in srgb, var(--accent-color), transparent 92%);
-  color: var(--accent-color);
   line-height: 0;
-  padding: 4px;
+  padding: 3px;
   margin-right: 10px;
   font-size: 24px;
   border-radius: 3px;
   transition: 0.3s;
 }
 
-.features .feature-box:hover i {
+.features .feature-box:hover Link {
   background: var(--accent-color);
   color: var(--contrast-color);
 }

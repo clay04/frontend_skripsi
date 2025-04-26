@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { LogoGenbi } from "../../img";
 import styles from "./infogenbi.module.css";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const InfoGenbi = () => {
+    const navigate = useNavigate();
+    const { isLoggedIn } = useContext(AuthContext); // asumsi kamu simpan status login di AuthContext
+
+    const handleRegisterClick = () => {
+        if (isLoggedIn) {
+            navigate("/beasiswa/genbi/form-pendaftaran");
+        } else {
+            console.error("User is not logged in. Redirecting to login page.");
+            navigate("/login");
+        }
+    };
+
     return (
         <>
         <link
@@ -13,12 +27,14 @@ const InfoGenbi = () => {
             <main className={styles.mainContent}>
             <section className={styles.headerSection}>
                 <img
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/6def632abcc8584998dd5e4424563e19041e945e"
+                src={LogoGenbi}
                 alt="Genbi Logo"
                 className={styles.genbiLogo}
                 />
                 <h2 className={styles.mainTitle}>Generasi Baru Indonesia</h2>
-                <button className={styles.registerButton}>Daftar</button>
+                <button onClick={handleRegisterClick} className={styles.registerButton}>
+                    Daftar
+                </button>
             </section>
             
             <section className={styles.requirementsSection}>

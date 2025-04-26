@@ -1,40 +1,49 @@
+"use client";
 import React from "react";
-import "./forgetpassword.css";
-import "react-bootstrap";
-import "../../vendor/bootstrap-icons/bootstrap-icons.css";
-import "../../vendor/bootstrap/css/bootstrap.min.css";
-import "../../vendor/bootstrap/css/bootstrap-grid.css";
-import "../../vendor/aos/aos.css";
-import "../../vendor/glightbox/css/glightbox.min.css";
-import "../../vendor/swiper/swiper-bundle.min.css";
-import "../../../App.css";
-import { LogoUK, LogoUK1 } from "../../img";
-import { Link } from "react-router-dom";
+import BackgroundImage from "./BackgroundImage";
+import ResetForm from "./ResetForm";
 
-const ForgetPassword = () => {
+
+function ForgotPassword() {
   return (
     <>
-        <link rel="preconnect" href="https://fonts.googleapis.com"></link>
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin></link>
-        <link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap" rel="stylesheet"></link>
-        
-        <div className="reset-container">
-            <img className="reset-logo" src={LogoUK1} alt="Logo" />
-            <div className="reset-title">Atur ulang Password</div>
-
-            <div className="reset-box">
-                <p className="reset-description">
-                    Masukan Email dari akun anda, dan kami akan mengirimkan <br />
-                    link untuk mengatur ulang kata sandi
-                </p>
-
-                <input type="email" className="reset-input" placeholder="Email" />
-
-                <Link to="/forget-password/verification" className="reset-button">Kirim Email pembaruan kata sandi</Link>
-            </div>
-        </div>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Onest:wght@400;600;700&family=Roboto:wght@700&display=swap"
+        rel="stylesheet"
+      />
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+      />
+      <main className="vh-100 vw-100 d-flex justify-content-center align-items-center bg-white">
+        <section className="position-relative w-100 h-100 d-flex justify-content-center align-items-center">
+          <BackgroundImage />
+          <div
+            className="position-absolute w-100 h-100 d-flex justify-content-center align-items-center"
+            style={{
+              backdropFilter: "blur(72.35px)",
+              backgroundColor: "rgba(222, 222, 222, 0.67)",
+              padding: "241px 461px",
+            }}
+          >
+            <ResetForm />
+          </div>
+        </section>
+      </main>
+      <style jsx>{`
+        @media (max-width: 991px) {
+          div {
+            padding: 200px 300px !important;
+          }
+        }
+        @media (max-width: 640px) {
+          div {
+            padding: 100px 100px !important;
+          }
+        }
+      `}</style>
     </>
   );
-};
+}
 
-export default ForgetPassword;
+export default ForgotPassword;
