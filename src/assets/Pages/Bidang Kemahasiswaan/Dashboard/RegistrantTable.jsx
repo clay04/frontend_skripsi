@@ -1,10 +1,55 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 function RegistrantTable() {
+  const [registrants, setRegistrants] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRegistrants = async () => {
+      try {
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        const token = storedUser?.token;
+
+        if (!token) {
+          console.error("No token found.");
+          return;
+        }
+
+        const response = await axios.get("http://localhost:9900/sms-mgmt/scholarship/get", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const fetchedRegistrants = response.data.output_schema.records || [];
+        setRegistrants(fetchedRegistrants);
+
+      } catch (error) {
+        console.error("Error fetching registrants:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRegistrants();
+  }, []);
+
+  const formatStatus = (status) => {
+    switch (status) {
+      case "APPROVED":
+        return "Lolos";
+      case "REJECTED":
+        return "Tidak Lolos";
+      case "IN_PROGRESS":
+        return "Sedang Diproses";
+      default:
+        return "-";
+    }
+  };
+
   return (
     <section className="bg-light rounded p-4 mt-4">
-      <h2 className="h5 mb-4">Table Pendaftar</h2>
+      <h2 className="h5 mb-4">Tabel Pendaftar</h2>
       <div className="table-responsive">
         <table className="table">
           <thead>
@@ -16,18 +61,33 @@ function RegistrantTable() {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-light">
-              <td className="py-3">Mendes, Camilla Lovenia Monalisa caludia</td>
-              <td className="py-3">Fakultas Ilmu Komputer</td>
-              <td className="py-3">Lengkap</td>
-              <td className="py-3">Lolos</td>
-            </tr>
-            <tr className="bg-light">
-              <td className="py-3">Mendes, Camilla Lovenia Monalisa caludia</td>
-              <td className="py-3">Fakultas Ilmu Komputer</td>
-              <td className="py-3">Lengkap</td>
-              <td className="py-3">Tidak Lolos</td>
-            </tr>
+            {loading ? (
+              <tr>
+                <td colSpan="4" className="text-center py-5">Loading data pendaftar...</td>
+              </tr>
+            ) : registrants.length === 0 ? (
+              <tr>
+                <td colSpan="4" className="text-center py-5 text-danger">Tidak ada pendaftar ditemukan</td>
+              </tr>
+            ) : (
+              registrants.map((registrant, index) => (
+                <tr key={index} className="bg-light">
+                  <td className="py-3">
+                    {registrant.masterUser?.lastName || ""}, {registrant.masterUser?.firstName || "-"}
+                  </td>
+                  <td className="py-3">
+                    {registrant.major?.facultyName || "-"}
+                  </td>
+                  <td className="py-3">
+                    {/* Untuk sekarang dummy: anggap semua dokumen lengkap */}
+                    Lengkap
+                  </td>
+                  <td className="py-3">
+                    {formatStatus(registrant.status)}
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
