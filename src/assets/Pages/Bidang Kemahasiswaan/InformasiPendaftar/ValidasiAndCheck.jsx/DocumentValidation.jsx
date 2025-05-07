@@ -103,7 +103,7 @@ export default function DocumentValidation() {
       // Kirim status ke backend bahwa dokumen sudah lengkap dan valid
       if (isAllVerified) {
         await apiClient.patch(`/document/completion-status?uploadedBy=${uploadedBy}&isComplete=true`);
-        await apiClient.patch(`/scholarship/approval?uuid=${uploadedBy}&status=APPROVED`);
+
         alert("Dokumen lengkap dan status beasiswa telah diperbarui.");
       } else {
         alert("Dokumen belum lengkap atau belum tervalidasi.");

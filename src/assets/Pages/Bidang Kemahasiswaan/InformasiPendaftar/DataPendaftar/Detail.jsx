@@ -19,39 +19,35 @@ export const StudentDetailsAndParentInformation = () => {
     try {
       const storedUser = JSON.parse(localStorage.getItem("user"));
       const token = storedUser?.token;
-
+  
       if (!token || !uuid) {
         console.error("Missing token or UUID.");
         return;
       }
-
+  
       const response = await apiClient.get(`/scholarship/detail?uuid=${uuid}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
+  
       const studentData = response.data.output_schema.result;
       setStudent(studentData);
-
+  
       const docResponse = await apiClient.get(`/document/get?uploadedBy=${studentData?.master_user?.uuid}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
+  
       const records = docResponse.data?.output_schema?.records || [];
       const passFoto = records.find(doc => doc.category === "Pass Foto");
       if (passFoto) {
         setPhotoUrl(`http://localhost:9900/sms-mgmt/document/download?uuid=${passFoto.uuid}`);
       }
-
-      // Cek kelengkapan dokumen
-      const isDocumentComplete = records.length === 11 && records.every(doc => doc.is_verified === true);
-      setDocumentStatus(isDocumentComplete ? "Lengkap" : "Belum Lengkap");
-
-      // Validasi data mahasiswa
-      const isValidated = studentData?.status === "VALIDATED";
-      setValidationStatus(isValidated ? "Valid" : "Perlu Validasi");
-
-      // Tentukan apakah bisa menyetujui
-      if (isDocumentComplete && isValidated) {
+  
+      // Cek kelengkapan dokumen berdasarkan response backend
+      const documentCompletionStatus = studentData.document_completion_status; // Ambil nilai documentCompletionStatus dari API
+      setDocumentStatus(documentCompletionStatus ? "Lengkap" : "Belum Lengkap");
+  
+      // Tentukan apakah bisa menyetujui berdasarkan documentCompletionStatus
+      if (documentCompletionStatus) { // Jika true, dokumen sudah lengkap
         setApprovalStatus("APPROVED");
         setAutoRejected(false);
         setCanApprove(true);
@@ -66,6 +62,7 @@ export const StudentDetailsAndParentInformation = () => {
       setLoading(false);
     }
   }, [uuid]);
+  
 
   const handleApprovalChange = async () => {
     if (autoRejected || !canApprove) {
@@ -184,10 +181,10 @@ export const StudentDetailsAndParentInformation = () => {
                   <p className="mb-2">No. Telepon :</p>
                 </div>
                 <div className="col-md-8">
-                  <p className="mb-2 fw-semibold">{student.parent?.father_name || "-"}</p>
-                  <p className="mb-2 fw-semibold">{student.parent?.father_address || "-"}</p>
-                  <p className="mb-2 fw-semibold">{student.parent?.father_job || "-"}</p>
-                  <p className="mb-2 fw-semibold">{student.parent?.father_phone || "-"}</p>
+                  <p className="mb-2 fw-semibold">{student.father_name || "-"}</p>
+                  <p className="mb-2 fw-semibold">{student.father_address || "-"}</p>
+                  <p className="mb-2 fw-semibold">{student.father_job || "-"}</p>
+                  <p className="mb-2 fw-semibold">{student.father_phone || "-"}</p>
                 </div>
               </div>
             </div>
@@ -204,10 +201,10 @@ export const StudentDetailsAndParentInformation = () => {
                   <p className="mb-2">No. Telepon :</p>
                 </div>
                 <div className="col-md-8">
-                  <p className="mb-2 fw-semibold">{student.parent?.mother_name || "-"}</p>
-                  <p className="mb-2 fw-semibold">{student.parent?.mother_address || "-"}</p>
-                  <p className="mb-2 fw-semibold">{student.parent?.mother_job || "-"}</p>
-                  <p className="mb-2 fw-semibold">{student.parent?.mother_phone || "-"}</p>
+                  <p className="mb-2 fw-semibold">{student.mother_name || "-"}</p>
+                  <p className="mb-2 fw-semibold">{student.mother_address || "-"}</p>
+                  <p className="mb-2 fw-semibold">{student.mother_job || "-"}</p>
+                  <p className="mb-2 fw-semibold">{student.mother_phone || "-"}</p>
                 </div>
               </div>
             </div>
