@@ -1,33 +1,50 @@
-"use client";
-import React from "react";
+function StudentInfo({ student }) {
+  const fullName = `${student.masterUser?.lastName || "-"}, ${student.masterUser?.firstName || "-"}`;
 
-export function StudentInfo() {
   return (
-    <section className="container-fluid mt-5">
-      <p className="text-secondary fw-medium mb-3">105011050808 / s08080511</p>
-      <div className="row">
-        <div className="col-lg-9">
-          <div className="mb-4">
-            <h2 className="h3 fw-bold text-center mb-4">
-              MENDES, CAMILLA LOVENIA MONALISA CLAUDIA
-            </h2>
-            <div className="mb-4">
-              <h3 className="h6 fw-light mb-1">Major</h3>
-              <p className="fs-5 fw-semibold">Information System</p>
+    <section className="container-fluid mt-4">
+      {/* NIM dan username */}
+      <p className="text-secondary text-center fw-medium mb-4">
+        {student.nim || "-"} / {student.noRegistration || "-"}
+      </p>
+
+      <div className="row g-4">
+        {/* Kiri */}
+        <div className="col-lg-8">
+          <div className="text-center text-lg-start">
+            <h2 className="h4 fw-bold mb-3">{fullName}</h2>
+            <div className="mb-3">
+              <h6 className="text-muted mb-1">Jurusan</h6>
+              <p className="fw-semibold fs-6 mb-0">{student.major?.majorName || "-"}</p>
             </div>
-            <div>
-              <h3 className="h6 fw-light mb-1">Semester</h3>
-              <p className="fs-5 fw-semibold">4</p>
+            <div className="mb-3">
+              <h6 className="text-muted mb-1">Fakultas</h6>
+              <p className="fw-semibold fs-6 mb-0">{student.major?.faculty?.facultyName || "-"}</p>
             </div>
           </div>
         </div>
-        <div className="col-lg-3">
-          <div className="mt-4 mt-lg-5">
-            <h3 className="h5 fw-medium mb-1">Calon Penerima Beasiswa</h3>
-            <p className="fs-5 fw-bold">KIP / GenBI</p>
+
+        {/* Kanan */}
+        <div className="col-lg-4 d-flex flex-column align-items-center align-items-lg-start">
+          <div>
+            <h6 className="text-muted mb-1">Beasiswa yang Diikuti</h6>
+            <p className="fw-bold text-primary fs-5 mb-0">{student.scholarshipType || "-"}</p>
+          </div>
+          <div className="mt-2">
+            <h6 className="text-muted mb-1">Tanggal Pendaftaran</h6>
+            <p className="fw-bold text-success fs-6 mb-0">{formatDate(student.createdAt)}</p>
           </div>
         </div>
       </div>
     </section>
   );
 }
+
+// Format tanggal ke format yang lebih readable
+function formatDate(dateString) {
+  if (!dateString) return "-";
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return new Date(dateString).toLocaleDateString("id-ID", options);
+}
+
+export default StudentInfo;

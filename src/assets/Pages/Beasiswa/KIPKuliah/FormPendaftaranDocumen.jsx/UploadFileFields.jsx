@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-const FileUploadField = ({ label }) => {
+const FileUploadField = ({ label, onChange }) => {
   return (
     <div className="mb-4">
       <label className="form-label fs-5 text-dark">{label}</label>
@@ -12,6 +12,8 @@ const FileUploadField = ({ label }) => {
           className="form-control"
           id="inputGroupFile"
           aria-label="Upload"
+          onChange={onChange}
+          required
         />
       </div>
     </div>

@@ -7,8 +7,8 @@ const StudentCard = ({ student }) => {
     <article className="bg-light rounded-3 p-3 d-flex align-items-center justify-content-between gap-3 flex-wrap mt-4">
       <div className="d-flex align-items-center gap-4">
         <img
-          src={student.avatar}
-          alt=""
+          src={student.avatar || "https://ui-avatars.com/api/?name=Unknown"}
+          alt="Student Avatar"
           className="rounded-circle"
           style={{ width: "40px", aspectRatio: "1", objectFit: "contain" }}
         />
@@ -31,12 +31,13 @@ const StudentCard = ({ student }) => {
         </div>
       </div>
       <div className="text-secondary" style={{ fontSize: "16px" }}>
-        GenBI
+        {student.scholarshipType}
       </div>
       <div className="d-flex gap-2">
-        <ActionButton label="Detail" icon="https://cdn.builder.io/api/v1/image/assets/6e56f22283ca426d8ccf6afbc1731b56/ace77583411a4ee7faf19261d9fc3d4b8417296d?placeholderIfAbsent=true" />
-        <ActionButton label="Update" icon="https://cdn.builder.io/api/v1/image/assets/6e56f22283ca426d8ccf6afbc1731b56/5f095fbcc39d405dd8b2c3fba09177a698108be1?placeholderIfAbsent=true" />
-        <ActionButton label="Delete" icon="https://cdn.builder.io/api/v1/image/assets/6e56f22283ca426d8ccf6afbc1731b56/ad98de4380791ed97542b78558925c97e83a1984?placeholderIfAbsent=true" />
+      <ActionButton label="Detail" iconClass="bi-info-circle" variant="info"/>
+      <ActionButton label="Update" iconClass="bi-pencil" variant="primary"/>
+      <ActionButton label="Delete" iconClass="bi-trash" variant="danger"/>
+
       </div>
     </article>
   );

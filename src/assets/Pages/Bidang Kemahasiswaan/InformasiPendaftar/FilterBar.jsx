@@ -1,13 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 
-export const FilterBar = () => {
-  const [filters, setFilters] = useState({
-    faculty: "semua",
-    scholarship: "semua",
-    status: "semua",
-  });
-
+export const FilterBar = ({ filters, setFilters }) => {
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters((prev) => ({
@@ -27,7 +21,7 @@ export const FilterBar = () => {
           value={filters.faculty}
           onChange={handleFilterChange}
         >
-          <option value="semua">semua</option>
+          <option value="semua">Semua</option>
           <option value="Fakultas Ilmu Komputer">Fakultas Ilmu Komputer</option>
           <option value="Fakultas Teknik">Fakultas Teknik</option>
         </select>
@@ -42,7 +36,7 @@ export const FilterBar = () => {
           value={filters.scholarship}
           onChange={handleFilterChange}
         >
-          <option value="semua">semua</option>
+          <option value="semua">Semua</option>
           <option value="GenBI">GenBI</option>
           <option value="Bidik Misi">Bidik Misi</option>
         </select>
@@ -57,8 +51,8 @@ export const FilterBar = () => {
           value={filters.status}
           onChange={handleFilterChange}
         >
-          <option value="semua">semua</option>
-          <option value="Aktif">Aktif</option>
+          <option value="semua">Semua</option>
+          <option value="Aktif">Aktif (APPROVED)</option>
           <option value="Tidak Aktif">Tidak Aktif</option>
         </select>
       </div>

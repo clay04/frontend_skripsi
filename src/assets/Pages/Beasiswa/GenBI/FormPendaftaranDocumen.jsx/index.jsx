@@ -1,10 +1,11 @@
 import React from "react";
 import DocumentUploadHeader from "./DocumentUploadHeader";
 import FileUploadField from "./UploadFileFields";
-import axios from "axios";
+import apiClient from "../../../../../api/apiClient";
 
 const FormPendaftaranDocumentGenBI = () => {
   const [files, setFiles] = React.useState({});
+  const [uploading, setUploading] = React.useState(false);
 
   const handleFileChange = (e, name) => {
     setFiles((prev) => ({
@@ -13,45 +14,44 @@ const FormPendaftaranDocumentGenBI = () => {
     }));
   };
 
-  const [uploading, setUploading] = React.useState(false);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUploading(true);
-  
+
     try {
-      const user = JSON.parse(localStorage.getItem("user")); // Ambil user dari localStorage
-      const uploadedBy = user?.user?.uuid; // Ambil UUID user
-  
+      const user = JSON.parse(localStorage.getItem("user")); // Ambil user (untuk token)
+      const scholarship = JSON.parse(localStorage.getItem("scholarship")); // Ambil beasiswa
+      const uploadedBy = scholarship?.uuid;
+
       if (!uploadedBy) {
-        alert("Gagal menemukan UUID user. Silakan login ulang.");
+        alert("Gagal menemukan UUID beasiswa. Silakan daftar ulang.");
         setUploading(false);
         return;
       }
-  
+
       for (const [category, file] of Object.entries(files)) {
         const formData = new FormData();
         formData.append("file", file);
         formData.append("category", category);
-        formData.append("uploadedBy", uploadedBy); // <-- gunakan UUID
-  
-        await axios.post("http://localhost:9900/sms-mgmt/document/upload", formData, {
+        formData.append("uploadedBy", uploadedBy); // ← gunakan UUID beasiswa
+
+        await apiClient.post("/document/upload", formData, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
         });
-  
+
         console.log(`${category} uploaded`);
       }
+
       alert("Seluruh dokumen berhasil diunggah.");
     } catch (err) {
-      console.error("Upload gagal", err);
+      console.error("Upload gagal:", err);
       alert("Terjadi kesalahan saat mengunggah dokumen.");
     } finally {
       setUploading(false);
     }
-  };  
-
+  };
 
   return (
     <main className="bg-white">
@@ -66,7 +66,7 @@ const FormPendaftaranDocumentGenBI = () => {
               <FileUploadField label="Surat Keterangan Tidak Mampu" onChange={(e) => handleFileChange(e, "Surat Keterangan Tidak Mampu")} />
               <FileUploadField label="Resume Pribadi *" onChange={(e) => handleFileChange(e, "Resume Pribadi")} />
               <FileUploadField label="Motivation Letter *" onChange={(e) => handleFileChange(e, "Motivation Letter")} />
-              <FileUploadField label="Surat Pernyataan sedang tidak menerima beasiswa lain *" onChange={(e) => handleFileChange(e, "Surat Pernyataan Tidak Menerima Beasiswa Lain")} />
+              <FileUploadField label="Surat Pernyataan Tidak Menerima Beasiswa Lain *" onChange={(e) => handleFileChange(e, "Surat Pernyataan Tidak Menerima Beasiswa Lain")} />
               <FileUploadField label="Surat Pernyataan Bermetrai *" onChange={(e) => handleFileChange(e, "Surat Pernyataan Bermetrai")} />
               <FileUploadField label="Fotocopy KTP *" onChange={(e) => handleFileChange(e, "Fotocopy KTP")} />
               <FileUploadField label="Fotocopy KTM *" onChange={(e) => handleFileChange(e, "Fotocopy KTM")} />
@@ -75,7 +75,6 @@ const FormPendaftaranDocumentGenBI = () => {
               <button type="submit" className="btn btn-success mt-5 px-4 py-2 fw-semibold" disabled={uploading}>
                 {uploading ? "Mengunggah..." : "Submit"}
               </button>
-
             </form>
           </div>
         </div>

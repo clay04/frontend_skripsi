@@ -27,7 +27,7 @@ const BidangKemahasiswaanLayout = ({ children }) => {
         className="overflow-auto"
         style={{
           marginLeft: `${sidebarWidth}px`,
-          paddingTop: `${headerHeight + 16}px`, // 16px = extra spacing
+          paddingTop: `${headerHeight + 5}px`, // 16px = extra spacing
           height: "100vh",
           paddingLeft: "1rem",
           paddingRight: "1rem",

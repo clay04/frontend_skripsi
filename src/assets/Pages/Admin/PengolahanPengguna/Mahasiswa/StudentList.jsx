@@ -1,54 +1,89 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import StudentCard from "./StudentCard";
+import { FilterSection } from "../../DaftarPendfartar/FilterSection";
+import apiClient from "../../../../../api/apiClient";
 
 const StudentList = () => {
-  const students = [
-    {
-      avatar: "https://cdn.builder.io/api/v1/image/assets/6e56f22283ca426d8ccf6afbc1731b56/0af7f59473cb15434c6049f8168453068c57fd9e?placeholderIfAbsent=true",
-      faculty: "Fakultas Ilmu Komputer / Sistem Informasi",
-      name: "Mendes, Camilla Lovenia Monalisa Claudia",
-      id: "105011050808 / s08080511",
-    },
-    // Repeated for other students...
-  ];
+  const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [filters, setFilters] = useState({
+    faculty: "semua",
+    scholarship: "semua",
+    status: "semua",
+  });
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        const token = storedUser?.token;
+
+        if (!token) {
+          console.error("No token found, user might not be logged in");
+          return;
+        }
+
+        const response = await apiClient.get("/scholarship/get", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const fetchedStudents = response.data.output_schema.records || [];
+        setStudents(fetchedStudents);
+      } catch (error) {
+        console.error("Error fetching students:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStudents();
+  }, []);
+
+  const filteredStudents = students.filter((student) => {
+    const facultyMatch =
+      filters.faculty === "semua" ||
+      student.major?.facultyName === filters.faculty;
+
+    const scholarshipMatch =
+      filters.scholarship === "semua" ||
+      student.scholarshipType === filters.scholarship;
+
+    const statusMatch =
+      filters.status === "semua" ||
+      (filters.status === "Aktif" && student.status === "APPROVED") ||
+      (filters.status === "Tidak Aktif" && student.status !== "APPROVED");
+
+    return facultyMatch && scholarshipMatch && statusMatch;
+  });
 
   return (
-    <section className="mt-0 w-100">
-      <div className="d-flex justify-content-between align-items-center flex-wrap gap-3">
-        <h2 className="mb-0" style={{ fontSize: "25px", fontWeight: "700" }}>
-          Daftar Mahasiswa
-        </h2>
-        <div className="bg-light rounded-3 d-flex align-items-center gap-4 py-2 px-4">
-          <span className="text-secondary" style={{ fontWeight: "500" }}>
-            Search
-          </span>
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/6e56f22283ca426d8ccf6afbc1731b56/7d324a11d19de8fbd804298d8135ece2db18bb3a?placeholderIfAbsent=true"
-            alt="Search"
-            style={{ width: "16px", aspectRatio: "1", objectFit: "contain" }}
-          />
-        </div>
-      </div>
+    <main className="mt-4">
+      <FilterSection filters={filters} setFilters={setFilters} />
+      <div className="mt-4">
+        {loading ? (
+          <p className="text-center">Loading daftar pendaftar...</p>
+        ) : filteredStudents.length === 0 ? (
+          <p className="text-center text-danger">Tidak ada data pendaftar.</p>
+        ) : (
+          filteredStudents.map((student, index) => (
+            <StudentCard
+              key={index}
+              student={{
+                avatar: student.masterUser?.avatar || "https://ui-avatars.com/api/?name=Unknown",
+                faculty: `${student.major?.facultyName || "-"} / ${student.major?.majorName || "-"}`,
+                name: `${student.masterUser?.lastName || ""}, ${student.masterUser?.firstName || ""}`,
+                id: `${student.nim || "-"} / ${student.noRegistration || "-"}`,
+                uuid: student.uuid,
+                scholarshipType: student.scholarshipType || "-",
+              }}
+            />
 
-      <div className="d-flex align-items-center gap-3 mt-4 ps-2">
-        <span>Filter</span>
-        <div className="border rounded-2 bg-white d-flex align-items-center gap-4 py-1 px-3">
-          <span style={{ fontSize: "14px" }}>semua</span>
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/6e56f22283ca426d8ccf6afbc1731b56/e72555040aaf6eb9caaa8dba3bf5cabd69160f40?placeholderIfAbsent=true"
-            alt="Dropdown"
-            style={{ width: "16px", aspectRatio: "1", objectFit: "contain" }}
-          />
-        </div>
-      </div>
 
-      <div className="d-flex flex-column w-100">
-        {students.map((student, index) => (
-          <StudentCard key={index} student={student} />
-        ))}
+          ))
+        )}
       </div>
-    </section>
+    </main>
   );
 };
 

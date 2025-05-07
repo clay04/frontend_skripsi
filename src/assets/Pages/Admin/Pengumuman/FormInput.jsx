@@ -1,7 +1,17 @@
 "use client";
 import React from "react";
 
-function FormInput({ label, placeholder, icon, multiline, height }) {
+function FormInput({
+  label,
+  placeholder,
+  icon,
+  multiline,
+  height,
+  type,
+  name,
+  value,
+  onChange,
+}) {
   return (
     <div className="mb-3">
       {label && <label className="form-label fw-semibold">{label}</label>}
@@ -11,13 +21,19 @@ function FormInput({ label, placeholder, icon, multiline, height }) {
             className="form-control"
             placeholder={placeholder}
             style={{ height: height || "100px" }}
+            name={name}
+            value={value}
+            onChange={onChange}
           />
         ) : (
           <>
             <input
-              type="text"
+              type={type || "text"}
               className="form-control"
               placeholder={placeholder}
+              name={name}
+              value={value}
+              onChange={onChange}
             />
             {icon && (
               <span className="input-group-text">

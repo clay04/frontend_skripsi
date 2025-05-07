@@ -84,12 +84,17 @@ function FormPendaftaranGenBI() {
           },
         }
       );
+    
+      // ✅ Simpan hasil ke localStorage
+      localStorage.setItem("scholarship", JSON.stringify(response.data.output_schema.result));
+    
       alert("Data berhasil dikirim: " + JSON.stringify(response.data));
       navigate("/beasiswa/genbi/form-pendaftaran/document");
     } catch (error) {
       console.error("Gagal mengirim data:", error.response?.data || error.message);
       alert("Gagal mengirim data!");
     }
+    
   };
 
   return (

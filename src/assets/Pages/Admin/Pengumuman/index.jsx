@@ -1,6 +1,8 @@
 import React from "react";
-import AnnouncementList from "./AnnouncementList";
+
 import AdminLayout from "../components/AdminLayout";
+import { AnnouncementList } from "./AnnouncementList";
+
 
 const Pengumuman = () => {
     return (

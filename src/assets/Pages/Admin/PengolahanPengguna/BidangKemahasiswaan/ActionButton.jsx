@@ -1,20 +1,15 @@
 "use client";
 import React from "react";
 
-const ActionButton = ({ label, icon, onClick }) => {
+const ActionButton = ({ iconClass, label, onClick, variant = "light" }) => {
   return (
     <button
-      className="btn btn-light rounded-pill d-flex align-items-center gap-2 py-1 px-3"
+      className={`btn btn-${variant} rounded-pill d-flex align-items-center gap-2 py-1 px-3`}
       onClick={onClick}
-      style={{ fontSize: "10px" }}
+      style={{ fontSize: "14px" }}
     >
       <span>{label}</span>
-      <img
-        src={icon}
-        alt={label}
-        className="object-fit-contain"
-        style={{ width: "14px" }}
-      />
+      <i className={`bi ${iconClass}`} style={{ fontSize: "14px" }}></i>
     </button>
   );
 };

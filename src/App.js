@@ -47,49 +47,59 @@ import FormPendaftaranGenBI from "./assets/Pages/Beasiswa/GenBI/FormPendaftaran/
 import FormPendaftaranDocumentGenBI from "./assets/Pages/Beasiswa/GenBI/FormPendaftaranDocumen.jsx/index.jsx";
 import FormPendaftaranKip from "./assets/Pages/Beasiswa/KIPKuliah/FormPendaftaran/index.jsx";
 import FormPendaftaranDocumentKip from "./assets/Pages/Beasiswa/KIPKuliah/FormPendaftaranDocumen.jsx/index.jsx";
+import BeasiswaDetail from "./assets/Pages/Admin/ManajemenBeasiswa/Detail.jsx";
+import PengaturanSistem from "./assets/Pages/Admin/PengaturanSistem/index.jsx";
+import ChangePassword from "./assets/Pages/Mahasiswa/ChangePassword/index.jsx";
 
 
 // Komponen Layout Wrapper
+// Komponen Layout Wrapper
 function Layout() {
   const location = useLocation();
-  const hideHeaderPaths = ["/login", "/signup", "/create-password/:token", "/forget-password", "/forget-password/done", "/signup/login-complete",
-    "/bidang-dashboard", "/admin/pengolahan-pengguna/mahasiswa", "/admin/pengolahan-pengguna/bidang-kemahasiswaan", "/admin/pengumuman", "/admin/pengumuman/add",
-    "/admin/dashboard", "/admin/manajemen-beasiswa", "/admin/manajemen-beasiswa/add", "/admin/daftar-pendaftar", "/admin/laporan-statistik", "/bidang/informasi-beasiswa",
-    "/bidang/informasi-beasiswa/add", "/bidang/announcement", "/bidang/informasi-pendaftar", "/bidang/informasi-pendaftar/data-pendaftar", "/bidang/informasi-pendaftar/data-pendaftar/validation-and-check",
-    "/mahasiswa/dashboard", "/mahasiswa/profile" ]; // Tambahkan path di mana Header disembunyikan
+
+  // Paths to hide header
+  const hideHeaderPaths = [
+    "/login", "/signup", "/create-password/:token", "/forget-password", "/forget-password/done", "/signup/login-complete",
+    "/bidang-dashboard", "/admin/pengolahan-pengguna/mahasiswa", "/admin/pengolahan-pengguna/bidang-kemahasiswaan",
+    "/admin/pengumuman", "/admin/pengumuman/add", "/admin/dashboard", "/admin/manajemen-beasiswa", "/admin/manajemen-beasiswa/add",
+    "/admin/daftar-pendaftar", "/admin/laporan-statistik", "/bidang/informasi-beasiswa", "/bidang/informasi-beasiswa/add",
+    "/bidang/announcement", "/bidang/informasi-pendaftar", "/bidang/informasi-pendaftar/data-pendaftar/:uuid", 
+    "/bidang/informasi-pendaftar/data-pendaftar/validation-and-check", "/mahasiswa/dashboard", "/mahasiswa/profile", "/mahasiswa/change-password"
+  ];
+
+  // Check if the current path matches any of the paths in hideHeaderPaths or has dynamic uuid
+  const isHeaderVisible = !hideHeaderPaths.some(path => 
+    location.pathname.includes(path) || /^\/bidang\/informasi-pendaftar\/data-pendaftar\/[a-zA-Z0-9\-]+$/.test(location.pathname)
+  );
 
   return (
     <>
-    
-      {!hideHeaderPaths.includes(location.pathname) && <Header />}
+      {/* Header will be hidden for paths matching those in hideHeaderPaths or for paths with :uuid */}
+      {isHeaderVisible && <Header />}
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/login" element={<Login />} />
-
         <Route path="/beasiswa/genbi/form-pendaftaran" element={<FormPendaftaranGenBI />} />
         <Route path="/beasiswa/genbi/form-pendaftaran/document" element={<FormPendaftaranDocumentGenBI />} />
-
         <Route path="/beasiswa/kip/form-pendaftaran" element={<FormPendaftaranKip />} />
         <Route path="/beasiswa/kip/form-pendaftaran/document" element={<FormPendaftaranDocumentKip />} />
-
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup/succes" element={<LoginComplete />} />
         <Route path="/create-password/:token" element={<CreatePassword />} />
         <Route path="/create-password/berhasil/:token" element={<LoginComplete />} />
-
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/forget-password/done" element={<ForgotPasswordDone />} />
+        
         <Route path="/home" element={<Home />} />
         <Route path="/beasiswa/genbi" element={<InfoGenbi />} />
-        <Route path="/beasiswa/kip" element={<InfoKIPKuliah />}/>
-
+        <Route path="/beasiswa/kip" element={<InfoKIPKuliah />} />
         <Route path="/bidang-dashboard" element={<DashboardBidangKemahasiswaan />} />
         <Route path="/bidang/informasi-beasiswa" element={<InformasiBeasiswa />} />
         <Route path="/bidang/informasi-beasiswa/add" element={<AddBeasiswaBK />} />
         <Route path="/bidang/announcement" element={<AnnouncementBK />} />
         <Route path="/bidang/informasi-pendaftar" element={<InformasiPendaftar />} />
-        <Route path="/bidang/informasi-pendaftar/data-pendaftar" element={<DataPendaftar />} />
-        <Route path="/bidang/informasi-pendaftar/data-pendaftar/validation-and-check" element={<ValidasiAndCheck />} />
-
+        <Route path="/bidang/informasi-pendaftar/data-pendaftar/:uuid" element={<DataPendaftar />} />
+        <Route path="/bidang/informasi-pendaftar/data-pendaftar/validation-and-check/:uploadedBy" element={<ValidasiAndCheck />} />
         <Route path="/admin/dashboard" element={<DashboardAdmin />} />
         <Route path="/admin/manajemen-beasiswa" element={<ManajemenBeasiswa />} />
         <Route path="/admin/manajemen-beasiswa/add" element={<AddBeasiswa />} />
@@ -99,11 +109,12 @@ function Layout() {
         <Route path="/admin/pengumuman" element={<Pengumuman />} />
         <Route path="/admin/pengumuman/add" element={<AddPengumuman />} />
         <Route path="/admin/laporan-statistik" element={<LaporanStatistik />} />
-
+        <Route path="/admin/manajemen-beasiswa/detail/:id" element={<BeasiswaDetail />} />
+        <Route path="/admin/pengaturan" element={<PengaturanSistem />} />
         <Route path="/mahasiswa/dashboard" element={<Dashboard />} />
         <Route path="/mahasiswa/profile" element={<Profile />} />
         <Route path="/mahasiswa/status" element={<Status />} />
-        
+        <Route path="/mahasiswa/change-password" element={<ChangePassword />} />
       </Routes>
     </>
   );

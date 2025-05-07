@@ -33,7 +33,7 @@ const SignUp = () => {
         try {
             const response = await axios.post("http://localhost:9900/sms-mgmt/auth/sign-up", payload);
             console.log("Success:", response.data);
-            navigate("/signup/create-password");
+            navigate("/signup/succes");
         } catch (error) {
             console.error("Signup failed:", error.response?.data || error.message);
             alert("Signup gagal. Cek kembali isian atau hubungi admin.");

@@ -1,8 +1,16 @@
 "use client";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 function Sidebar() {
+  const location = useLocation();
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const toggleDropdown = () => setShowDropdown(!showDropdown);
+
+  // Fungsi bantu untuk cek menu aktif
+  const isActive = (path) => location.pathname.startsWith(path);
+
   return (
     <nav className="p-3 pt-4 bg-light">
       <div className="nav flex-column h-100" style={{ width: "240px", minHeight: "100vh" }}>
@@ -15,33 +23,81 @@ function Sidebar() {
           />
         </Link>
 
-        <Link to="/admin/manajemen-beasiswa" className="nav-link bg-white rounded-end py-2 px-3 mb-2">
-          <i className="bi bi-file-earmark-text"></i>
+        <Link
+          to="/admin/manajemen-beasiswa"
+          className={`nav-link py-2 px-3 mb-2 rounded-end ${isActive("/admin/manajemen-beasiswa") ? "bg-primary text-white" : "bg-white"}`}
+        >
+          <i className="bi bi-journal-text"></i>
           <span className="ms-2 text-nowrap">Manajemen Beasiswa</span>
         </Link>
 
-        <Link to="/admin/daftar-pendaftar" className="nav-link bg-white rounded-end py-2 px-3 mb-2">
-          <i className="bi bi-file-earmark-text"></i>
-          <span className="ms-2 text-nowrap">Pedaftar</span>
+        <Link
+          to="/admin/daftar-pendaftar"
+          className={`nav-link py-2 px-3 mb-2 rounded-end ${isActive("/admin/daftar-pendaftar") ? "bg-primary text-white" : "bg-white"}`}
+        >
+          <i className="bi bi-people"></i>
+          <span className="ms-2 text-nowrap">Pendaftar</span>
         </Link>
 
-        <a href="#" className="nav-link bg-white rounded-end py-2 px-3 mb-2">
-          Pengolahan Pengguna
-        </a>
-
-        <div className="ms-4 mb-2">
-          <Link to="/admin/pengolahan-pengguna/mahasiswa" className="nav-link text-dark fw-light py-1 px-3">Mahasiswa</Link>
-          <Link to="/admin/pengolahan-pengguna/bidang-kemahasiswaan" className="nav-link text-dark fw-light py-1 px-3">Bidang Kemahasiswaan</Link>
+        <div
+          className={`nav-link py-2 px-3 mb-2 rounded-end d-flex justify-content-between align-items-center ${isActive("/admin/pengolahan-pengguna") ? "bg-primary text-white" : "bg-white"}`}
+          style={{ cursor: "pointer" }}
+          onClick={toggleDropdown}
+        >
+          <div>
+            <i className="bi bi-person-gear"></i>
+            <span className="ms-2 text-nowrap">Pengolahan Pengguna</span>
+          </div>
+          <i className={`bi ${showDropdown ? "bi-caret-down-fill" : "bi-caret-right-fill"}`}></i>
         </div>
 
-        <Link to="/admin/pengumuman" className="nav-link bg-white rounded-end py-2 px-3 mb-2">Pengumuman</Link>
-        <Link to="/admin/laporan-statistik" className="nav-link bg-white rounded-end py-2 px-3 mb-2">Laporan & Statistik</Link>
-        <a href="#" className="nav-link bg-white rounded-end py-2 px-3 mb-2">Pengaturan Sistem</a>
+        {showDropdown && (
+          <div className="ms-4 mb-2">
+            <Link
+              to="/admin/pengolahan-pengguna/mahasiswa"
+              className={`nav-link text-dark fw-light py-1 px-3 ${isActive("/admin/pengolahan-pengguna/mahasiswa") ? "bg-primary text-white rounded" : ""}`}
+            >
+              <i className="bi bi-person"></i> <span className="ms-1">Mahasiswa</span>
+            </Link>
+            <Link
+              to="/admin/pengolahan-pengguna/bidang-kemahasiswaan"
+              className={`nav-link text-dark fw-light py-1 px-3 ${isActive("/admin/pengolahan-pengguna/bidang-kemahasiswaan") ? "bg-primary text-white rounded" : ""}`}
+            >
+              <i className="bi bi-person-vcard"></i> <span className="ms-1">Kemahasiswaan</span>
+            </Link>
+          </div>
+        )}
 
-        <Link to="/login" className="btn btn-danger rounded-end py-2 px-4 mt-5">Logout</Link>
+        <Link
+          to="/admin/pengumuman"
+          className={`nav-link py-2 px-3 mb-2 rounded-end ${isActive("/admin/pengumuman") ? "bg-primary text-white" : "bg-white"}`}
+        >
+          <i className="bi bi-megaphone"></i>
+          <span className="ms-2">Pengumuman</span>
+        </Link>
+
+        <Link
+          to="/admin/laporan-statistik"
+          className={`nav-link py-2 px-3 mb-2 rounded-end ${isActive("/admin/laporan-statistik") ? "bg-primary text-white" : "bg-white"}`}
+        >
+          <i className="bi bi-bar-chart"></i>
+          <span className="ms-2">Laporan</span>
+        </Link>
+
+        <Link
+          to="/admin/pengaturan"
+          className={`nav-link py-2 px-3 mb-2 rounded-end ${isActive("/admin/pengaturan") ? "bg-primary text-white" : "bg-white"}`}
+        >
+          <i className="bi bi-gear"></i>
+          <span className="ms-2">Pengaturan Sistem</span>
+        </Link>
+
+        <Link to="/login" className="btn btn-danger rounded-end py-2 px-4 mt-5">
+          <i className="bi bi-box-arrow-right"></i>
+          <span className="ms-2">Logout</span>
+        </Link>
       </div>
     </nav>
-
   );
 }
 

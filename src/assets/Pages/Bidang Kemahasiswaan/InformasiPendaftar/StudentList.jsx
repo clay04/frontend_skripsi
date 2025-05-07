@@ -7,6 +7,11 @@ import axios from "axios";
 export const StudentList = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filters, setFilters] = useState({
+    faculty: "semua",
+    scholarship: "semua",
+    status: "semua",
+  });
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -20,9 +25,7 @@ export const StudentList = () => {
         }
 
         const response = await axios.get("http://localhost:9900/sms-mgmt/scholarship/get", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         const fetchedStudents = response.data.output_schema.records || [];
@@ -37,21 +40,40 @@ export const StudentList = () => {
     fetchStudents();
   }, []);
 
+  const filteredStudents = students.filter((student) => {
+    const facultyMatch =
+      filters.faculty === "semua" ||
+      student.major?.facultyName === filters.faculty;
+
+    const scholarshipMatch =
+      filters.scholarship === "semua" ||
+      student.scholarshipType === filters.scholarship;
+
+    const statusMatch =
+      filters.status === "semua" ||
+      (filters.status === "Aktif" && student.status === "APPROVED") ||
+      (filters.status === "Tidak Aktif" && student.status !== "APPROVED");
+
+    return facultyMatch && scholarshipMatch && statusMatch;
+  });
+
   return (
     <main className="mt-4">
-      <FilterBar />
+      <FilterBar filters={filters} setFilters={setFilters} />
       <div className="mt-4">
         {loading ? (
           <p className="text-center">Loading daftar pendaftar...</p>
-        ) : students.length === 0 ? (
+        ) : filteredStudents.length === 0 ? (
           <p className="text-center text-danger">Tidak ada data pendaftar.</p>
         ) : (
-          students.map((student, index) => (
+          filteredStudents.map((student, index) => (
             <StudentCard
               key={index}
-              faculty={`${student.major?.facultyName || "-"}/${student.major?.majorName || "-"}`}
+              faculty={`${student.major?.facultyName || "-"} / ${student.major?.majorName || "-"}`}
               name={`${student.masterUser?.lastName || ""}, ${student.masterUser?.firstName || ""}`}
               id={`${student.nim || "-"} / ${student.noRegistration || "-"}`}
+              uuid={student.uuid}  // <-- TAMBAH INI !!
+              scholarshipType={student.scholarshipType || "-"}
             />
           ))
         )}

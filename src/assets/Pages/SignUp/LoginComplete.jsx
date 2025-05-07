@@ -18,7 +18,7 @@ const LoginComplete = () => {
                                     <div className={`${styles.card} d-flex flex-column justify-content-center align-items-center`}>
                                         <div>
                                             <h5 className="text-white fw-bolder fs-2 text-center">Akun anda telah berhasil di buat</h5>
-                                            <p className="text-light fs-4 text-center">Silahkan lanjutkan ke Login</p>
+                                            <p className="text-light fs-4 text-center">Silahkan Cek Email anda</p>
                                         </div>
 
                                         <Link to="/login" className={`${styles.button} btn btn-primary mt-4`}>Login</Link>

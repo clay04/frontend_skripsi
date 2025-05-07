@@ -1,53 +1,78 @@
-"use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { RegistrationHeader } from "./RegistrationHeader";
 import { FormInput } from "./FormInput";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function FormPendaftaranKip() {
-  const [firstName, setFirstName] = React.useState("");
-  const [lastName, setLastName] = React.useState("");
-  const [nim, setNim] = React.useState("");
-  const [noRegistration, setNoRegistration] = React.useState("");
-  const [scholarshipType, setScholarshipType] = React.useState("");
-  const [addressLine1, setAddressLine1] = React.useState("");
-  const [addressLine2, setAddressLine2] = React.useState("");
-  const [highSchoolName, setHighSchoolName] = React.useState("");
-  const [fatherName, setFatherName] = React.useState("");
-  const [motherName, setMotherName] = React.useState("");
-  const [majorId, setMajorId] = React.useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [nim, setNim] = useState("");
+  const [noRegistration, setNoRegistration] = useState("");
+  const [scholarshipType, setScholarshipType] = useState("");
+  const [addressLine1, setAddressLine1] = useState("");
+  const [addressLine2, setAddressLine2] = useState("");
+  const [highSchoolName, setHighSchoolName] = useState("");
+  const [fatherName, setFatherName] = useState("");
+  const [motherName, setMotherName] = useState("");
+  const [majorId, setMajorId] = useState("");
+
+  // ✅ Tambahkan state untuk daftar jurusan
+  const [majors, setMajors] = useState([]);
 
   const navigate = useNavigate();
 
+  // ✅ Ambil data jurusan dari backend
+  useEffect(() => {
+    const fetchMajors = async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const token = user?.token;
+
+      if (!token) return;
+
+      try {
+        const res = await axios.get("http://localhost:9900/sms-mgmt/major/get", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const fetchedMajors = res.data.output_schema.records || [];
+        setMajors(fetchedMajors);
+      } catch (error) {
+        console.error("Gagal mengambil data jurusan:", error);
+      }
+    };
+
+    fetchMajors();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const requestBody = {
       uuid: crypto.randomUUID(),
       nim,
       first_name: firstName,
       last_name: lastName,
       nomor_registrasi: noRegistration,
-      scholarship_type: scholarshipType,
+      scholarship_type: "KIP", // ⛔ ini sudah cukup, tidak perlu dua kali
       address_line_1: addressLine1,
       address_line_2: addressLine2,
       high_school_name: highSchoolName,
       father_name: fatherName,
       mother_name: motherName,
       major_id: majorId,
-      scholarship_type: "KIP KUliah",
-
     };
-  
+
     const user = JSON.parse(localStorage.getItem("user"));
     const token = user?.token;
-  
+
     if (!token) {
       alert("Silakan login terlebih dahulu.");
       return;
     }
-  
+
     try {
       const response = await axios.post(
         "http://localhost:9900/sms-mgmt/scholarship/create",
@@ -59,15 +84,14 @@ function FormPendaftaranKip() {
           },
         }
       );
+      localStorage.setItem("scholarship", JSON.stringify(response.data.output_schema.result));
       alert("Data berhasil dikirim: " + JSON.stringify(response.data));
-      navigate("/beasiswa/form-pendaftaran/document");
+      navigate("/beasiswa/kip/form-pendaftaran/document");
     } catch (error) {
       console.error("Gagal mengirim data:", error.response?.data || error.message);
       alert("Gagal mengirim data!");
     }
   };
-  
-  
 
   return (
     <main className="bg-white" style={{ fontFamily: "Onest, -apple-system, Roboto, Helvetica, sans-serif" }}>
@@ -83,10 +107,10 @@ function FormPendaftaranKip() {
               <FormInput
                 label="Jurusan"
                 placeholder="Select"
-                isSelect={true}
-                isMajorDropdown={true}
+                isSelect
                 value={majorId}
                 onChange={(e) => setMajorId(e.target.value)}
+                options={majors}
               />
 
               <FormInput label="Alamat" placeholder="Type here" value={addressLine1} onChange={(e) => setAddressLine1(e.target.value)} />

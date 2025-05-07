@@ -1,8 +1,34 @@
 "use client";
-import React from "react";
-import { AnnouncementCard } from "./AnnouncementCard";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { AnnouncementCard } from "../../Admin/Pengumuman/AnnouncementCard";
 
 export const AnnouncementList = () => {
+  const [announcements, setAnnouncements] = useState([]);
+
+  useEffect(() => {
+    const fetchAnnouncements = async () => {
+      try {
+        const response = await axios.get("http://localhost:9900/sms-mgmt/announcement/list");
+        const records = response.data.output_schema.records;
+        setAnnouncements(records || []);
+      } catch (error) {
+        console.error("Gagal mengambil pengumuman:", error);
+      }
+    };
+
+    fetchAnnouncements();
+  }, []);
+
+  const handleDelete = async (uuid) => {
+    try {
+      await axios.delete(`http://localhost:9900/sms-mgmt/announcement/delete?uuid=${uuid}`);
+      setAnnouncements((prev) => prev.filter((item) => item.uuid !== uuid));
+    } catch (error) {
+      console.error("Gagal menghapus pengumuman:", error);
+    }
+  };
+
   return (
     <section className="py-4">
       <h2 className="h4 fw-bold mb-4">Pengumuman</h2>
@@ -16,18 +42,26 @@ export const AnnouncementList = () => {
         />
       </button>
 
-      <div className="announcement-list">
-        <AnnouncementCard
-          date="10-April-2025"
-          title="Jadwal Pendaftaran Beasiswa Semester 2 tahun ajaran 2024/2025"
-          category="Jadwal Pendaftaran"
-        />
-        <AnnouncementCard
-          date="10-April-2025"
-          title="Jadwal Pendaftaran Beasiswa Semester 2 tahun ajaran 2024/2025"
-          category="Jadwal Pendaftaran"
-        />
-      </div>
+      {announcements.length > 0 ? (
+        announcements.map((announcement) => (
+          <AnnouncementCard
+            key={announcement.uuid}
+            uuid={announcement.uuid}
+            date={new Date(announcement.createdAt).toLocaleDateString("id-ID", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            })}
+            title={announcement.title}
+            category={announcement.category}
+            onDetail={(uuid) => console.log("Detail:", uuid)}
+            onUpdate={(uuid) => console.log("Update:", uuid)}
+            onDelete={(uuid) => handleDelete(uuid)}
+          />
+        ))
+      ) : (
+        <p className="text-muted">Belum ada pengumuman yang tersedia.</p>
+      )}
     </section>
   );
 };

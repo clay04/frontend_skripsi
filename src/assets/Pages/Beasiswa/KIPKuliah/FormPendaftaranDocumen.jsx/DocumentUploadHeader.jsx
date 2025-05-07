@@ -1,4 +1,5 @@
 import React from "react";
+import { KIPLogo } from "../../../../img";
 
 const DocumentUploadHeader = () => {
   return (
@@ -7,7 +8,7 @@ const DocumentUploadHeader = () => {
         Formulir Pendaftaran Upload Dokumen
       </h1>
       <img
-        src="https://cdn.builder.io/api/v1/image/assets/6e56f22283ca426d8ccf6afbc1731b56/e3977f02412e3db8f910002e785a5e54174d222b?placeholderIfAbsent=true"
+        src={KIPLogo}
         alt="Upload Document Icon"
         className="img-fluid"
         style={{ width: "90px", aspectRatio: "1" }}

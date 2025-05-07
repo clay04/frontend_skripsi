@@ -1,47 +1,79 @@
 "use client";
-import React from "react";
-import SearchBar from "./SearchBar";
-import AnnouncementCard from "./AnnouncementCard";
+import React, { useEffect, useState } from "react";
+import { AnnouncementCard } from "./AnnouncementCard";
 import { Link } from "react-router-dom";
+import apiClient from "../../../../api/apiClient";
 
-const AnnouncementList = () => {
+export const AnnouncementList = () => {
+  const [announcements, setAnnouncements] = useState([]);
+
+  useEffect(() => {
+    const fetchAnnouncements = async () => {
+      try {
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        const token = storedUser?.token;
+
+        const response = await apiClient.get("/announcement/list", {
+          headers: {Authorization: `Bearer ${token}`},
+        });
+        const records = response.data.output_schema.records;
+        setAnnouncements(records || []);
+      } catch (error) {
+        console.error("Gagal mengambil pengumuman:", error);
+      }
+    };
+  
+    fetchAnnouncements();
+  }, []);
+
+  const handleDelete = async (uuid) => {
+    try {
+      await apiClient.delete(`/announcement/delete?uuid=${uuid}`);
+      setAnnouncements((prev) => prev.filter((item) => item.uuid !== uuid));
+    } catch (error) {
+      console.error("Gagal menghapus pengumuman:", error);
+    }
+  };  
+
   return (
-    <section className="w-full p-2">
-      <div className="d-flex justify-content-between align-items-center flex-wrap gap-3">
-        <h1 className="h3 mb-0">Pengumuman</h1>
-        <SearchBar />
-      </div>
+    <section className="py-4">
+      <h2 className="h4 fw-bold mb-4">Pengumuman</h2>
 
-      <Link to="/admin/pengumuman/add" className="new-announcement d-inline-flex align-items-center gap-3 mt-4 px-4 py-2">
-        <span className="fs-5">Pengumuman baru</span>
-        <i class="bi bi-plus-lg"></i>
+      {/* ✅ Ganti button dengan Link */}
+      <Link
+        to="/admin/pengumuman/add"
+        className="btn btn-light rounded-3 d-flex align-items-center gap-3 mb-4"
+      >
+        <span className="fs-5">Tambahkan Pengumuman</span>
+        <img
+          src="https://cdn.builder.io/api/v1/image/assets/6e56f22283ca426d8ccf6afbc1731b56/f86c0f5ab4188643405595cb3b98aa2a04ca2d6e?placeholderIfAbsent=true"
+          alt="Add"
+          style={{ width: "24px", height: "24px" }}
+        />
       </Link>
 
-      <div className="mt-4">
-        <AnnouncementCard
-          image="https://cdn.builder.io/api/v1/image/assets/6e56f22283ca426d8ccf6afbc1731b56/bc5ce1a0ed694690b95b6af81d216c5cde2b95fa?placeholderIfAbsent=true"
-          date="10-April-2025"
-          status="Ditampilkan"
-          title="Jadwal Pendaftaran Beasiswa Semester 2 tahun ajaran 2024/2025"
-          category="Jadwal Pendaftaran"
-        />
-        <AnnouncementCard
-          image="https://cdn.builder.io/api/v1/image/assets/6e56f22283ca426d8ccf6afbc1731b56/7417f64cf8f4a163adcd85fa4c090d334269f761?placeholderIfAbsent=true"
-          date="10-April-2025"
-          status="Ditampilkan"
-          title="Pengumuman hasil seleksi beasiswa GenBI"
-          category="Hasil Seleksi"
-        />
-        <AnnouncementCard
-          image="https://cdn.builder.io/api/v1/image/assets/6e56f22283ca426d8ccf6afbc1731b56/0422dc433abfe3b913814e610076b8e71d2eb0ab?placeholderIfAbsent=true"
-          date="10-April-2025"
-          status="Disembunyikan"
-          title="Jadwal seleksi beasiswa KIP Kuliah"
-          category="Jadwal Seleksi"
-        />
-      </div>
+      
+
+      {announcements.length > 0 ? (
+        announcements.map((announcement) => (
+          <AnnouncementCard
+            key={announcement.uuid}
+            uuid={announcement.uuid}
+            date={new Date(announcement.createdAt).toLocaleDateString("id-ID", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            })}
+            title={announcement.title}
+            category={announcement.category}
+            onDetail={(uuid) => console.log("Detail:", uuid)}
+            onUpdate={(uuid) => console.log("Update:", uuid)}
+            onDelete={(uuid) => handleDelete(uuid)}
+          />
+        ))
+      ) : (
+        <p className="text-muted">Belum ada pengumuman yang tersedia.</p>
+      )}
     </section>
   );
 };
-
-export default AnnouncementList;
