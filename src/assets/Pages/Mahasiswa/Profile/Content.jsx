@@ -20,7 +20,7 @@ export default function Content() {
         const userUuid = storedUser.user.uuid;
 
         // Fetch user profile
-        const userResponse = await axios.get(`http://localhost:9900/sms-mgmt/master-user/detail?uuid=${userUuid}`, {
+        const userResponse = await axios.get(`https://simbeasiswauk.site:9900/sms-mgmt/master-user/detail?uuid=${userUuid}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -29,7 +29,7 @@ export default function Content() {
         setUserData(fetchedUserData);
 
         // Fetch scholarship
-        const scholarshipResponse = await axios.get(`http://localhost:9900/sms-mgmt/scholarship/get?userUuid=${userUuid}`, {
+        const scholarshipResponse = await axios.get(`https://simbeasiswauk.site:9900/sms-mgmt/scholarship/get?userUuid=${userUuid}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

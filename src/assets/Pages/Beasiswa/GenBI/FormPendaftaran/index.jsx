@@ -31,7 +31,7 @@ function FormPendaftaranGenBI() {
       if (!token) return;
 
       try {
-        const res = await axios.get("http://localhost:9900/sms-mgmt/major/get", {
+        const res = await axios.get("https://simbeasiswauk.site:9900/sms-mgmt/major/get", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -75,7 +75,7 @@ function FormPendaftaranGenBI() {
 
     try {
       const response = await axios.post(
-        "http://localhost:9900/sms-mgmt/scholarship/create",
+        "https://simbeasiswauk.site:9900/sms-mgmt/scholarship/create",
         requestBody,
         {
           headers: {

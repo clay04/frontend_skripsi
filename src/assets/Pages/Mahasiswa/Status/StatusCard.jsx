@@ -19,7 +19,7 @@ export function StatusCard() {
           return;
         }
 
-        const response = await axios.get(`http://localhost:9900/sms-mgmt/scholarship/detail?userUuid=${userUuid}`, {
+        const response = await axios.get(`https://simbeasiswauk.site:9900/sms-mgmt/scholarship/detail?userUuid=${userUuid}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 

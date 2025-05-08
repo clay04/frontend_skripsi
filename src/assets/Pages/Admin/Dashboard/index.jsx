@@ -25,7 +25,7 @@ const DashboardAdmin = () => {
           return;
         }
 
-        const response = await axios.get("http://localhost:9900/sms-mgmt/scholarship/get", {
+        const response = await axios.get("https://simbeasiswauk.site:9900/sms-mgmt/scholarship/get", {
           headers: { Authorization: `Bearer ${token}` },
         });
 

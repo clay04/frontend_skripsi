@@ -35,7 +35,7 @@ const FormPendaftaranDocumentGenBI = () => {
         formData.append("category", category);
         formData.append("uploadedBy", uploadedBy); // <-- gunakan UUID
   
-        await axios.post("http://localhost:9900/sms-mgmt/document/upload", formData, {
+        await axios.post("https://simbeasiswauk.site:9900/sms-mgmt/document/upload", formData, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
