@@ -39,7 +39,7 @@ export const StudentDetailsAndParentInformation = () => {
       const records = docResponse.data?.output_schema?.records || [];
       const passFoto = records.find(doc => doc.category === "Pass Foto");
       if (passFoto) {
-        setPhotoUrl(`http://localhost:9900/sms-mgmt/document/download?uuid=${passFoto.uuid}`);
+        setPhotoUrl(`http://103.31.39.151:9900/sms-mgmt/document/download?uuid=${passFoto.uuid}`);
       }
   
       // Cek kelengkapan dokumen berdasarkan response backend

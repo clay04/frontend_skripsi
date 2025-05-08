@@ -75,7 +75,7 @@ function FormPendaftaranKip() {
 
     try {
       const response = await axios.post(
-        "http://localhost:9900/sms-mgmt/scholarship/create",
+        "http://103.31.39.151:9900/sms-mgmt/scholarship/create",
         requestBody,
         {
           headers: {

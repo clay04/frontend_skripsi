@@ -24,7 +24,7 @@ export const StudentList = () => {
           return;
         }
 
-        const response = await axios.get("http://localhost:9900/sms-mgmt/scholarship/get", {
+        const response = await axios.get("http://103.31.39.151:9900/sms-mgmt/scholarship/get", {
           headers: { Authorization: `Bearer ${token}` },
         });
 

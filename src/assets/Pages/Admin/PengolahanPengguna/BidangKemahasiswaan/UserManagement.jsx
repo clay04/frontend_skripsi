@@ -60,7 +60,7 @@ const UserManagement = () => {
         status: true,
       };
 
-      await axios.post("https://simbeasiswauk.site:9900/sms-mgmt/master-user/create", payload, {
+      await axios.post("http://103.31.39.151:9900/sms-mgmt/master-user/create", payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

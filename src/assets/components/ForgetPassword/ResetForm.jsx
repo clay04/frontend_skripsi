@@ -14,7 +14,7 @@ function ResetForm() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:9900/sms-mgmt/auth/forgot-password", {
+      const response = await fetch("http://103.31.39.151:9900/sms-mgmt/auth/forgot-password", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

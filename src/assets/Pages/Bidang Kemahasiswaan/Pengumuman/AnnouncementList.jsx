@@ -9,7 +9,7 @@ export const AnnouncementList = () => {
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-        const response = await axios.get("http://localhost:9900/sms-mgmt/announcement/list");
+        const response = await axios.get("http://103.31.39.151:9900/sms-mgmt/announcement/list");
         const records = response.data.output_schema.records;
         setAnnouncements(records || []);
       } catch (error) {
@@ -22,7 +22,7 @@ export const AnnouncementList = () => {
 
   const handleDelete = async (uuid) => {
     try {
-      await axios.delete(`http://localhost:9900/sms-mgmt/announcement/delete?uuid=${uuid}`);
+      await axios.delete(`http://103.31.39.151:9900/sms-mgmt/announcement/delete?uuid=${uuid}`);
       setAnnouncements((prev) => prev.filter((item) => item.uuid !== uuid));
     } catch (error) {
       console.error("Gagal menghapus pengumuman:", error);
