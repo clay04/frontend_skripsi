@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import DocumentUploadHeader from "./DocumentUploadHeader";
 import FileUploadField from "./UploadFileFields";
 import apiClient from "../../../../../api/apiClient";
 
 const FormPendaftaranDocumentKip = () => {
-  const [files, setFiles] = React.useState({});
-  const [uploading, setUploading] = React.useState(false);
+  const [files, setFiles] = useState({});
+  const [uploading, setUploading] = useState(false);
 
   const handleFileChange = (e, name) => {
     setFiles((prev) => ({
