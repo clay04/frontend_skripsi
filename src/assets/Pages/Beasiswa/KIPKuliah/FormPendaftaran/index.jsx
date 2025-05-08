@@ -56,7 +56,7 @@ function FormPendaftaranKip() {
       first_name: firstName,
       last_name: lastName,
       nomor_registrasi: noRegistration,
-      scholarship_type: "KIP", // ⛔ ini sudah cukup, tidak perlu dua kali
+      scholarship_type: "GenBI", // ⛔ ini sudah cukup, tidak perlu dua kali
       address_line_1: addressLine1,
       address_line_2: addressLine2,
       high_school_name: highSchoolName,
@@ -84,13 +84,17 @@ function FormPendaftaranKip() {
           },
         }
       );
+    
+      // ✅ Simpan hasil ke localStorage
       localStorage.setItem("scholarship", JSON.stringify(response.data.output_schema.result));
+    
       alert("Data berhasil dikirim: " + JSON.stringify(response.data));
-      navigate("/beasiswa/kip/form-pendaftaran/document");
+      navigate("/beasiswa/genbi/form-pendaftaran/document");
     } catch (error) {
       console.error("Gagal mengirim data:", error.response?.data || error.message);
       alert("Gagal mengirim data!");
     }
+    
   };
 
   return (
