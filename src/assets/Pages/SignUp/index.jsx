@@ -31,7 +31,7 @@ const SignUp = () => {
         };        
 
         try {
-            const response = await axios.post("http://localhost:9900/sms-mgmt/auth/sign-up", payload);
+            const response = await axios.post("http://103.31.39.151:9900/sms-mgmt/auth/sign-up", payload);
             console.log("Success:", response.data);
             navigate("/signup/succes");
         } catch (error) {
