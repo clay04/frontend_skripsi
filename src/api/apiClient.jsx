@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "https://103.31.39.151:9900/sms-mgmt",
+  baseURL: "https://simbeasiswauk.site:9900/sms-mgmt",
 });
 
 apiClient.interceptors.request.use((config) => {

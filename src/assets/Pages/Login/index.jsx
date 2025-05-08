@@ -38,7 +38,7 @@ function Login() {
     setError("");
 
     try {
-      const response = await fetch("https://103.31.39.151:9900/sms-mgmt/auth/login", {
+      const response = await fetch("https://simbeasiswauk.site:9900/sms-mgmt/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

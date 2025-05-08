@@ -22,7 +22,7 @@ function DashboardContent() {
 
       try {
         const response = await axios.get(
-          `http://103.31.39.151:9900/sms-mgmt/scholarship/get?userUuid=${userUuid}`,
+          `https://simbeasiswauk.site:9900/sms-mgmt/scholarship/get?userUuid=${userUuid}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         const scholarshipRecords = response.data.output_schema.records;
