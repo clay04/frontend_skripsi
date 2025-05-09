@@ -55,13 +55,6 @@ function Home() {
                   <a href="#about" className="btn-get-started">
                     Get Started <i className="bi bi-arrow-right" />
                   </a>
-                  <a
-                    href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
-                    className="glightbox btn-watch-video d-flex align-items-center justify-content-center ms-0 ms-md-4 mt-4 mt-md-0"
-                  >
-                    <i className="bi bi-play-circle" />
-                    <span>Watch Video</span>
-                  </a>
                 </div>
               </div>
               <div
@@ -118,17 +111,14 @@ function Home() {
         {/* /About Section */}
         {/* Values Section */}
         <section id="values" className="values section">
-          {/* Section Title */}
           <div className="container section-title" data-aos="fade-up">
-            <h2>Info</h2>
             <p>
               Beasiswa yang tersedia
-              <br />
             </p>
+            <h2>Click for more Info <i class="bi bi-arrow-down"></i></h2>
           </div>
-          {/* End Section Title */}
           <div className="card-container container">
-            <div className="row gy-4">
+            <div className="row gy-3 justify-content-center">
               <Link to="/beasiswa/kip" className="col-lg-4" data-aos="fade-up" data-aos-delay={200}>
                 <div className="card">
                   <img src={KIPLogo} className="img-fluid" alt="" />
@@ -153,9 +143,7 @@ function Home() {
           </div>
         </section>
         {/* /Values Section */}
-        {/* Stats Section */}
-        
-        {/* /Stats Section */}
+
         {/* Features Section */}
         <section id="features" className="features section">
           {/* Section Title */}
@@ -176,8 +164,8 @@ function Home() {
                       <table width={1300}>
                         <th width={500}><h3>KIP Kuliah</h3></th>
                         <th width={450}><h3>1 Maret - 31 Maret</h3></th>
-                        <th width={200}><Link><i class="bi bi-info-circle"></i>Info</Link></th>
-                        <th width={150}><Link>Daftar</Link></th>
+                        <th width={200}><Link to="/beasiswa/kip"><i class="bi bi-info-circle"></i>Info</Link></th>
+                        <th width={150}><Link to="/beasiswa/kip/form-pendaftaran">Daftar</Link></th>
                       </table>
                     </div>
                   </div>
@@ -187,8 +175,8 @@ function Home() {
                       <table width={1300}>
                         <th width={500}><h3>GenBI</h3></th>
                         <th width={450}><h3>1 Maret - 31 Maret</h3></th>
-                        <th width={200}><Link><i class="bi bi-info-circle"></i>Info</Link></th>
-                        <th width={150}><Link>Daftar</Link></th>
+                        <th width={200}><Link to="/beasiswa/genbi"><i class="bi bi-info-circle"></i>Info</Link></th>
+                        <th width={150}><Link to="/beasiswa/genbi/form-pendaftaran">Daftar</Link></th>
                       </table>
                     </div>
                   </div>
