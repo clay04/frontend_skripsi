@@ -13,7 +13,7 @@ const UserManagement = () => {
     first_name: "",
     last_name: "",
     phone_number: "",
-    email: "",
+    //email: "",
     non_student_email: "",
   });
   const [updateFormData, setUpdateFormData] = useState({
@@ -21,7 +21,7 @@ const UserManagement = () => {
     first_name: "",
     last_name: "",
     phone_number: "",
-    email: "",
+    //email: "",
     non_student_email: "",
   }); // New state for update modal
   const [loadingSubmit, setLoadingSubmit] = useState(false);
