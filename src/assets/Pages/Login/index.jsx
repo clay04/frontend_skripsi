@@ -89,7 +89,7 @@ function Login() {
         <img className="logologin" src={LogoUK} alt="Logo" />
         <div className="welcome-box">
           <h1>Welcome,</h1>
-          <h2>Scholarship Management System</h2>
+          <h2>Universitas Klabat</h2>
         </div>
         <div className="login-box">
           <h2 className="login-title">Login</h2>
