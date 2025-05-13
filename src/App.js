@@ -53,6 +53,8 @@ import PengaturanSistem from "./assets/Pages/Admin/PengaturanSistem/index.jsx";
 import ChangePassword from "./assets/Pages/Mahasiswa/ChangePassword/index.jsx";
 import AnnouncementDetail from "./assets/Pages/Bidang Kemahasiswaan/Pengumuman/Detail/index.jsx";
 import AnnouncementUpdate from "./assets/Pages/Bidang Kemahasiswaan/Pengumuman/Update/index.jsx";
+import AnnouncementDetailAdmin from "./assets/Pages/Admin/Pengumuman/Detail/index.jsx";
+import AnnouncementUpdateAdmin from "./assets/Pages/Admin/Pengumuman/Update/index.jsx";
 
 
 // Komponen Layout Wrapper
@@ -113,6 +115,8 @@ function Layout() {
         <Route path="/admin/pengolahan-pengguna/bidang-kemahasiswaan" element={<BidangKemahasiswaan />} />
         <Route path="/admin/pengumuman" element={<Pengumuman />} />
         <Route path="/admin/pengumuman/add" element={<AddPengumuman />} />
+        <Route path="/admin/pengumuman/detail/:uuid" element={<AnnouncementDetailAdmin />} />
+        <Route path="/admin/pengumuman/update/:uuid" element={<AnnouncementUpdateAdmin />} />
         <Route path="/admin/laporan-statistik" element={<LaporanStatistik />} />
         <Route path="/admin/manajemen-beasiswa/detail/:id" element={<BeasiswaDetail />} />
         <Route path="/admin/pengaturan" element={<PengaturanSistem />} />

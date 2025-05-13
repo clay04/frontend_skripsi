@@ -78,9 +78,10 @@ function RegistrantTable() {
                   <td className="py-3">
                     {registrant.major?.facultyName || "-"}
                   </td>
-                  <td className="py-3">
-                    {/* Untuk sekarang dummy: anggap semua dokumen lengkap */}
-                    Lengkap
+                  <td className={`py-3 ${registrant.documentCompletionStatus ? "text-success" : "text-danger"}`}>
+                    {registrant.documentCompletionStatus
+                      ? "Dokumen Lengkap dan Valid"
+                      : "Dokumen Belum Lengkap dan Valid"}
                   </td>
                   <td className="py-3">
                     {formatStatus(registrant.status)}

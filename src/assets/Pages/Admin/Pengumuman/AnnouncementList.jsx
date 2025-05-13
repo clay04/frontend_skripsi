@@ -1,11 +1,14 @@
-"use client";
 import React, { useEffect, useState } from "react";
 import { AnnouncementCard } from "./AnnouncementCard";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import apiClient from "../../../../api/apiClient";
+import DeleteConfirmationModal from "./Delete";
 
 export const AnnouncementList = () => {
   const [announcements, setAnnouncements] = useState([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [announcementToDelete, setAnnouncementToDelete] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
@@ -17,7 +20,6 @@ export const AnnouncementList = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        // ✅ langsung ambil dari response.data
         const records = Array.isArray(response.data) ? response.data : [];
         setAnnouncements(records);
       } catch (error) {
@@ -28,13 +30,34 @@ export const AnnouncementList = () => {
     fetchAnnouncements();
   }, []);
 
-  const handleDelete = async (uuid) => {
+  const handleDelete = async () => {
+    if (!announcementToDelete) return;
+
     try {
-      await apiClient.delete(`/announcement/delete?uuid=${uuid}`);
-      setAnnouncements((prev) => prev.filter((item) => item.uuid !== uuid));
+      await apiClient.delete(`/announcement/delete?uuid=${announcementToDelete.uuid}`);
+      setAnnouncements((prev) => prev.filter((item) => item.uuid !== announcementToDelete.uuid));
+      setShowDeleteModal(false); // Close the modal
     } catch (error) {
       console.error("Gagal menghapus pengumuman:", error);
     }
+  };
+
+  const handleDetail = (uuid) => {
+    navigate(`/admin/pengumuman/detail/${uuid}`);
+  };
+
+  const handleUpdate = (uuid) => {
+    navigate(`/admin/pengumuman/update/${uuid}`);
+  };
+
+  const openDeleteModal = (announcement) => {
+    setAnnouncementToDelete(announcement);
+    setShowDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setShowDeleteModal(false);
+    setAnnouncementToDelete(null);
   };
 
   return (
@@ -60,23 +83,22 @@ export const AnnouncementList = () => {
             uuid={announcement.uuid}
             title={announcement.title || "(Tanpa Judul)"}
             category={announcement.category || "-"}
-            date={
-              announcement.createdAt
-                ? new Date(announcement.createdAt).toLocaleDateString("id-ID", {
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric",
-                  })
-                : "-"
-            }
-            onDetail={() => console.log("Detail:", announcement.uuid)}
-            onUpdate={() => console.log("Update:", announcement.uuid)}
-            onDelete={() => handleDelete(announcement.uuid)}
+            date={new Date(announcement.createdAt).toLocaleDateString()}
+            onDetail={() => handleDetail(announcement.uuid)}
+            onUpdate={() => handleUpdate(announcement.uuid)}
+            onDelete={() => openDeleteModal(announcement)}
           />
         ))
       ) : (
         <p className="text-muted">Belum ada pengumuman yang tersedia.</p>
       )}
+
+      <DeleteConfirmationModal
+        show={showDeleteModal}
+        onClose={closeDeleteModal}
+        onConfirm={handleDelete}
+        title={announcementToDelete?.title || ""}
+      />
     </section>
   );
 };

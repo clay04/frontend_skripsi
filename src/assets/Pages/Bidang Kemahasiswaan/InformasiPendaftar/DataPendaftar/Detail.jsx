@@ -32,7 +32,7 @@ export const StudentDetailsAndParentInformation = () => {
       const studentData = response.data.output_schema.result;
       setStudent(studentData);
   
-      const docResponse = await apiClient.get(`/document/get?uploadedBy=${studentData?.master_user?.uuid}`, {
+      const docResponse = await apiClient.get(`/document/get?uploadedBy=${uuid}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
   

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import apiClient from "../../../../../api/apiClient";
 
-const AnnouncementUpdate = () => {
+const AnnouncementUpdateAdmin = () => {
   const { state } = useLocation();
   const [announcement, setAnnouncement] = useState(state || {});
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,7 @@ const AnnouncementUpdate = () => {
       setLoading(true);
       await apiClient.put("/announcement/update", announcement);
       setLoading(false);
-      navigate("/bidang/announcement");
+      navigate("/admin/pengumuman");
     } catch (error) {
       setLoading(false);
       console.error("Error updating announcement:", error);
@@ -136,4 +136,4 @@ const AnnouncementUpdate = () => {
   );
 };
 
-export default AnnouncementUpdate;
+export default AnnouncementUpdateAdmin;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import apiClient from "../../../../../api/apiClient";
 
-const AnnouncementDetail = () => {
+const AnnouncementDetailAdmin = () => {
   const { uuid } = useParams();
   const { state } = useLocation();
   const [announcement, setAnnouncement] = useState(state || {});
@@ -58,7 +58,7 @@ const AnnouncementDetail = () => {
             <button
               className="btn btn-outline-primary"
               onClick={() =>
-                navigate(`/bidang/announcement/update/${announcement.uuid}`, {
+                navigate(`/admin/pengumuman/update/${announcement.uuid}`, {
                   state: announcement,
                 })
               }
@@ -73,4 +73,4 @@ const AnnouncementDetail = () => {
   );
 };
 
-export default AnnouncementDetail;
+export default AnnouncementDetailAdmin;

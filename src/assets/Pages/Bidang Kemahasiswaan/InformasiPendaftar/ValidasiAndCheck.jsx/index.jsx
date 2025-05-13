@@ -1,7 +1,7 @@
 import React from "react";
-//import StudentProfile from "./StudentProfile";
 import DocumentValidation from "./DocumentValidation";
 import BidangKemahasiswaanLayout from "../../components/BidangKemahasiswaanLayout"
+import { Link } from "react-router-dom";
 
 const ValidasiAndCheck = () => {
     return(
@@ -19,7 +19,7 @@ const ValidasiAndCheck = () => {
                         />
                         <span>Daftar Mahasiswa</span>
                         <span>/</span>
-                        <span>Data Pendaftar</span>
+                        <Link><span>Data Pendaftar</span> </Link>
                         <span>/</span>
                         <span className="text-primary">Validasi Data Dokumen</span>
                     </nav>

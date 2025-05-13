@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import apiClient from "../../../../../api/apiClient";
 
 const documentList = [
@@ -19,6 +19,8 @@ const documentList = [
 
 export default function DocumentValidation() {
   const { uploadedBy } = useParams();
+  const navigate = useNavigate();
+
   const [documents, setDocuments] = useState({});
   const [loading, setLoading] = useState(true);
   const [allComplete, setAllComplete] = useState(false);
@@ -31,9 +33,8 @@ export default function DocumentValidation() {
       try {
         if (!uploadedBy) return;
         const response = await apiClient.get(`/document/get?uploadedBy=${uploadedBy}`);
-        console.log("Response API:", response.data);
-        const uploadedDocuments = response.data?.output_schema?.records;
-        console.log("Uploaded Documents:", uploadedDocuments);  // Cek data yang diterima
+        const uploadedDocuments = response.data?.output_schema?.records || [];
+
         const newDocuments = {};
         const newVerifications = {};
         const newNotes = {};
@@ -61,7 +62,6 @@ export default function DocumentValidation() {
         setVerifications(newVerifications);
         setNotes(newNotes);
         setAllComplete(Object.values(newDocuments).every(Boolean));
-        
       } catch (error) {
         setErrorMessage("Gagal mengambil dokumen, silakan coba lagi.");
       } finally {
@@ -102,11 +102,12 @@ export default function DocumentValidation() {
     try {
       const isAllVerified = Object.values(verifications).every((v) => v === true);
 
-      // Kirim status ke backend bahwa dokumen sudah lengkap dan valid
       if (isAllVerified) {
         await apiClient.patch(`/document/completion-status?uploadedBy=${uploadedBy}&isComplete=true`);
-
         alert("Dokumen lengkap dan status beasiswa telah diperbarui.");
+
+        // ✅ Redirect ke halaman DataPendaftar
+        navigate("/bidang/datapendaftar");
       } else {
         alert("Dokumen belum lengkap atau belum tervalidasi.");
       }
@@ -115,7 +116,6 @@ export default function DocumentValidation() {
     }
   };
 
-  
   const previewDocument = async (uuid) => {
     try {
       const response = await apiClient.get(`/document/preview/${uuid}`, { responseType: "blob" });
@@ -135,7 +135,9 @@ export default function DocumentValidation() {
           <span>Status</span>
           <span>:</span>
           <span className={allComplete && Object.values(verifications).every((v) => v === true) ? "text-success" : "text-danger"}>
-            {allComplete && Object.values(verifications).every((v) => v === true) ? "Dokumen Valid dan Lengkap" : "Belum Valid atau Tidak Lengkap"}
+            {allComplete && Object.values(verifications).every((v) => v === true)
+              ? "Dokumen Valid dan Lengkap"
+              : "Belum Valid atau Tidak Lengkap"}
           </span>
         </div>
       </div>
