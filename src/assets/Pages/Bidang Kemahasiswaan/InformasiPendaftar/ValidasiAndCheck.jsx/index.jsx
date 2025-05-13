@@ -1,5 +1,5 @@
 import React from "react";
-import StudentProfile from "./StudentProfile";
+//import StudentProfile from "./StudentProfile";
 import DocumentValidation from "./DocumentValidation";
 import BidangKemahasiswaanLayout from "../../components/BidangKemahasiswaanLayout"
 
@@ -21,10 +21,9 @@ const ValidasiAndCheck = () => {
                         <span>/</span>
                         <span>Data Pendaftar</span>
                         <span>/</span>
-                        <span className="text-primary">Validasi Data dan Dokumen</span>
+                        <span className="text-primary">Validasi Data Dokumen</span>
                     </nav>
                     <div className="mt-4 ms-3">
-                        <StudentProfile />
                         <DocumentValidation />
                     </div>
                     </div>

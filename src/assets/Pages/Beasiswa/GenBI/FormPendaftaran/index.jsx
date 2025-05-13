@@ -19,6 +19,8 @@ function FormPendaftaranGenBI() {
 
   // ✅ Tambahkan state untuk daftar jurusan
   const [majors, setMajors] = useState([]);
+  const [success, setSuccess] = useState(false); // State to track success
+  const [error, setError] = useState(""); // State for error handling
 
   const navigate = useNavigate();
 
@@ -88,14 +90,29 @@ function FormPendaftaranGenBI() {
       // ✅ Simpan hasil ke localStorage
       localStorage.setItem("scholarship", JSON.stringify(response.data.output_schema.result));
     
-      alert("Data berhasil dikirim: " + JSON.stringify(response.data));
-      navigate("/beasiswa/genbi/form-pendaftaran/document");
+      setSuccess(true); // Set success to true once submission is successful
+      setError(""); // Reset any error
     } catch (error) {
       console.error("Gagal mengirim data:", error.response?.data || error.message);
-      alert("Gagal mengirim data!");
+      setError("Gagal mengirim data!");
     }
-    
   };
+
+  // If the form submission is successful, show a success notification
+  if (success) {
+    return (
+      <div className="success-container">
+        <h3>Pendaftaran berhasil!</h3>
+        <p>Data pendaftaran Anda telah berhasil disimpan. Klik tombol di bawah untuk melanjutkan ke tahap berikutnya.</p>
+        <button
+          className="btn btn-primary"
+          onClick={() => navigate("/beasiswa/genbi/form-pendaftaran/document")} // Navigate to the document upload page
+        >
+          Lanjutkan ke Pendaftaran Dokumen
+        </button>
+      </div>
+    );
+  }
 
   return (
     <main className="bg-white" style={{ fontFamily: "Onest, -apple-system, Roboto, Helvetica, sans-serif" }}>
@@ -128,6 +145,7 @@ function FormPendaftaranGenBI() {
                 Next
               </button>
             </form>
+            {error && <div className="error-message">{error}</div>}
           </div>
         </div>
       </div>

@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
-import { LogoGenbi } from "../../img";
 import styles from "./infogenbi.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { LogoGenbi } from "../../img";
 
 const InfoGenbi = () => {
+    console.log("Genbi page loaded");
+    
     const navigate = useNavigate();
     const { isLoggedIn } = useContext(AuthContext); // asumsi kamu simpan status login di AuthContext
 

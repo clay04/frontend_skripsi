@@ -31,8 +31,9 @@ export default function DocumentValidation() {
       try {
         if (!uploadedBy) return;
         const response = await apiClient.get(`/document/get?uploadedBy=${uploadedBy}`);
-        const uploadedDocuments = response.data?.output_schema?.records || [];
-
+        console.log("Response API:", response.data);
+        const uploadedDocuments = response.data?.output_schema?.records;
+        console.log("Uploaded Documents:", uploadedDocuments);  // Cek data yang diterima
         const newDocuments = {};
         const newVerifications = {};
         const newNotes = {};
@@ -60,6 +61,7 @@ export default function DocumentValidation() {
         setVerifications(newVerifications);
         setNotes(newNotes);
         setAllComplete(Object.values(newDocuments).every(Boolean));
+        
       } catch (error) {
         setErrorMessage("Gagal mengambil dokumen, silakan coba lagi.");
       } finally {
@@ -125,7 +127,7 @@ export default function DocumentValidation() {
   };
 
   return (
-    <section className="mt-5">
+    <section className="mt-0">
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="fs-4 fw-bold m-0">Cek Dokumen</h2>

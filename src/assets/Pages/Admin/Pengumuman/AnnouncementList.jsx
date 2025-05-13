@@ -14,15 +14,17 @@ export const AnnouncementList = () => {
         const token = storedUser?.token;
 
         const response = await apiClient.get("/announcement/list", {
-          headers: {Authorization: `Bearer ${token}`},
+          headers: { Authorization: `Bearer ${token}` },
         });
-        const records = response.data.output_schema.records;
-        setAnnouncements(records || []);
+
+        // ✅ langsung ambil dari response.data
+        const records = Array.isArray(response.data) ? response.data : [];
+        setAnnouncements(records);
       } catch (error) {
         console.error("Gagal mengambil pengumuman:", error);
       }
     };
-  
+
     fetchAnnouncements();
   }, []);
 
@@ -33,13 +35,12 @@ export const AnnouncementList = () => {
     } catch (error) {
       console.error("Gagal menghapus pengumuman:", error);
     }
-  };  
+  };
 
   return (
     <section className="py-4">
       <h2 className="h4 fw-bold mb-4">Pengumuman</h2>
 
-      {/* ✅ Ganti button dengan Link */}
       <Link
         to="/admin/pengumuman/add"
         className="btn btn-light rounded-3 d-flex align-items-center gap-3 mb-4"
@@ -52,23 +53,25 @@ export const AnnouncementList = () => {
         />
       </Link>
 
-      
-
       {announcements.length > 0 ? (
         announcements.map((announcement) => (
           <AnnouncementCard
             key={announcement.uuid}
             uuid={announcement.uuid}
-            date={new Date(announcement.createdAt).toLocaleDateString("id-ID", {
-              day: "2-digit",
-              month: "long",
-              year: "numeric",
-            })}
-            title={announcement.title}
-            category={announcement.category}
-            onDetail={(uuid) => console.log("Detail:", uuid)}
-            onUpdate={(uuid) => console.log("Update:", uuid)}
-            onDelete={(uuid) => handleDelete(uuid)}
+            title={announcement.title || "(Tanpa Judul)"}
+            category={announcement.category || "-"}
+            date={
+              announcement.createdAt
+                ? new Date(announcement.createdAt).toLocaleDateString("id-ID", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  })
+                : "-"
+            }
+            onDetail={() => console.log("Detail:", announcement.uuid)}
+            onUpdate={() => console.log("Update:", announcement.uuid)}
+            onDelete={() => handleDelete(announcement.uuid)}
           />
         ))
       ) : (

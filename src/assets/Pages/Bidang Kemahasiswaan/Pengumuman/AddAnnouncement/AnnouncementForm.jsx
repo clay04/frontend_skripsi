@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import axios from "axios";
 import FormInput from "./FormInput";
 import FileUpload from "./FileUpload";
 import { Link } from "react-router-dom";
@@ -24,12 +23,18 @@ function AnnouncementFormBike() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const storedUser = JSON.parse(localStorage.getItem("user"));
-      const token = storedUser?.token; // Ambil token dari localStorage
 
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const token = storedUser?.token;
+
+    if (!storedUser || !token) {
+      alert("Anda belum login. Silakan login terlebih dahulu.");
+      return;
+    }
+
+    try {
       const response = await apiClient.post(
-        "announcement/create",
+        "/announcement/create",
         form,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -37,7 +42,7 @@ function AnnouncementFormBike() {
       );
 
       alert("Pengumuman berhasil dibuat!");
-      console.log(response.data);
+      console.log("Respon:", response.data);
 
       // Reset form
       setForm({
@@ -50,7 +55,11 @@ function AnnouncementFormBike() {
       });
     } catch (error) {
       console.error("Gagal buat pengumuman:", error);
-      alert("Gagal membuat pengumuman: " + (error.response?.data?.message || error.message));
+      if (error.response?.status === 401) {
+        alert("Autentikasi gagal. Silakan login kembali.");
+      } else {
+        alert("Gagal membuat pengumuman: " + (error.response?.data?.message || error.message));
+      }
     }
   };
 

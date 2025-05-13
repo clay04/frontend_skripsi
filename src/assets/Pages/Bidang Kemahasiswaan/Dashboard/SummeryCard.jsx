@@ -22,7 +22,7 @@ function SummaryCards() {
           return;
         }
 
-        const response = await axios.get("http://103.31.39.151:9900/sms-mgmt/scholarship/get", {
+        const response = await axios.get("https://simbeasiswauk.site:9900/sms-mgmt/scholarship/get", {
           headers: { Authorization: `Bearer ${token}` },
         });
 

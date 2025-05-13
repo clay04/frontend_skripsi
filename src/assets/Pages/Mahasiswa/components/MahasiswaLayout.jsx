@@ -30,15 +30,16 @@ const MahasiswaLayout = ({ children }) => {
       <main
         className="overflow-auto"
         style={{
-          marginLeft: `${sidebarWidth}px`,
-          paddingTop: `${headerHeight + 16}px`, // 16px = extra spacing
-          height: "100vh",
-          paddingLeft: "1rem",
-          paddingRight: "1rem",
+          marginLeft: `${sidebarWidth}px`,         // Tetap perlu karena sidebar fixed
+          paddingTop: `${headerHeight + 16}px`,    // Tetap perlu agar tidak ketumpuk header
+          //height: "100vh",       // ← Ganti dengan lebar sidebar
+          paddingLeft: 10,                          // ← Hapus padding kiri
+          paddingRight: 10,                         // ← Hapus padding kanan
         }}
       >
         {children}
       </main>
+
     </div>
   );
 };

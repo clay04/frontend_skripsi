@@ -2,9 +2,14 @@ import React from "react";
 import DocumentUploadHeader from "./DocumentUploadHeader";
 import FileUploadField from "./UploadFileFields";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import the useNavigate hook
 
 const FormPendaftaranDocumentGenBI = () => {
   const [files, setFiles] = React.useState({});
+  const [uploading, setUploading] = React.useState(false);
+  const [success, setSuccess] = React.useState(false); // State to track success
+  const [error, setError] = React.useState(""); // State to track error message
+  const navigate = useNavigate(); // Initialize the navigate function
 
   const handleFileChange = (e, name) => {
     setFiles((prev) => ({
@@ -13,45 +18,61 @@ const FormPendaftaranDocumentGenBI = () => {
     }));
   };
 
-  const [uploading, setUploading] = React.useState(false);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUploading(true);
-  
+    setSuccess(false); // Reset success state on each submit
+    setError(""); // Reset any error
+
     try {
-      const user = JSON.parse(localStorage.getItem("user")); // Ambil user dari localStorage
-      const uploadedBy = user?.user?.uuid; // Ambil UUID user
-  
+      const user = JSON.parse(localStorage.getItem("user")); // Get user from localStorage
+      const uploadedBy = user?.user?.uuid; // Get user UUID
+
       if (!uploadedBy) {
         alert("Gagal menemukan UUID user. Silakan login ulang.");
         setUploading(false);
         return;
       }
-  
+
       for (const [category, file] of Object.entries(files)) {
         const formData = new FormData();
         formData.append("file", file);
         formData.append("category", category);
-        formData.append("uploadedBy", uploadedBy); // <-- gunakan UUID
-  
+        formData.append("uploadedBy", uploadedBy); // Add UUID
+
         await axios.post("https://simbeasiswauk.site:9900/sms-mgmt/document/upload", formData, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
         });
-  
+
         console.log(`${category} uploaded`);
       }
-      alert("Seluruh dokumen berhasil diunggah.");
+
+      setSuccess(true); // Set success to true once all files are uploaded
+      setUploading(false); // Stop uploading
     } catch (err) {
       console.error("Upload gagal", err);
-      alert("Terjadi kesalahan saat mengunggah dokumen.");
-    } finally {
-      setUploading(false);
+      setError("Terjadi kesalahan saat mengunggah dokumen.");
+      setUploading(false); // Stop uploading in case of error
     }
-  };  
+  };
 
+  // If the form submission is successful, show a success notification
+  if (success) {
+    return (
+      <div className="success-container">
+        <h3>Dokumen berhasil diunggah!</h3>
+        <p>Pendaftaran Anda berhasil. Silakan klik tombol di bawah untuk kembali ke homepage.</p>
+        <button
+          className="btn btn-primary"
+          onClick={() => navigate("/")} // Redirect to homepage
+        >
+          Kembali ke Homepage
+        </button>
+      </div>
+    );
+  }
 
   return (
     <main className="bg-white">
@@ -75,8 +96,8 @@ const FormPendaftaranDocumentGenBI = () => {
               <button type="submit" className="btn btn-success mt-5 px-4 py-2 fw-semibold" disabled={uploading}>
                 {uploading ? "Mengunggah..." : "Submit"}
               </button>
-
             </form>
+            {error && <div className="error-message">{error}</div>}
           </div>
         </div>
       </div>

@@ -22,15 +22,15 @@ function DashboardContent() {
 
       try {
         const response = await axios.get(
-          `https://simbeasiswauk.site:9900/sms-mgmt/scholarship/get?userUuid=${userUuid}`,
+          `https://simbeasiswauk.site:9900/sms-mgmt/scholarship/detail?userUuid=${userUuid}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        const scholarshipRecords = response.data.output_schema.records;
+        const scholarshipRecords = response.data.output_schema.result;
 
-        if (scholarshipRecords && scholarshipRecords.length > 0) {
-          setScholarshipType(scholarshipRecords[0].scholarshipType || "-");
+        if (scholarshipRecords) {
+          setScholarshipType(scholarshipRecords.scholarship_type || "-");
 
-          const createdAt = scholarshipRecords[0].createdAt;
+          const createdAt = scholarshipRecords.created_at;
           if (createdAt) {
             const dateObj = new Date(createdAt);
             const formattedDate = dateObj.toLocaleDateString("id-ID", {
@@ -67,12 +67,12 @@ function DashboardContent() {
             <div className="card border-0 shadow-sm rounded-4 bg-white p-3 hover-shadow">
               <div className="d-flex justify-content-between align-items-center mb-2">
                 <span className="text-muted">Jenis Beasiswa</span>
-                <span className="fw-semibold text-dark">{scholarshipType}</span>
+                <span className="fw-semibold text-dark ms-3">{scholarshipType}</span>
               </div>
               <hr />
               <div className="d-flex justify-content-between align-items-center">
                 <span className="text-muted">Tanggal Daftar</span>
-                <span className="fw-semibold text-dark">{registrationDate}</span>
+                <span className="fw-semibold text-dark ms-3">{registrationDate}</span>
               </div>
             </div>
           </div>

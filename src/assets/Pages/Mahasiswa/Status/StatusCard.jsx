@@ -23,7 +23,7 @@ export function StatusCard() {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        const scholarshipData = response.data.output_schema.records?.[0] || null;
+        const scholarshipData = response.data.output_schema?.result || null;
         setStudent(scholarshipData);
       } catch (error) {
         console.error("Gagal fetch data scholarship:", error);

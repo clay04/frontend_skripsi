@@ -36,6 +36,7 @@ import LaporanStatistik from "./assets/Pages/Admin/LaporanStatistik";
 import InformasiBeasiswa from "./assets/Pages/Bidang Kemahasiswaan/InformasiBeasiswa";
 import AddBeasiswaBK from "./assets/Pages/Bidang Kemahasiswaan/InformasiBeasiswa/AddBeasiswa";
 import AnnouncementBK from "./assets/Pages/Bidang Kemahasiswaan/Pengumuman";
+
 import InformasiPendaftar from "./assets/Pages/Bidang Kemahasiswaan/InformasiPendaftar";
 import DataPendaftar from "./assets/Pages/Bidang Kemahasiswaan/InformasiPendaftar/DataPendaftar";
 import ValidasiAndCheck from "./assets/Pages/Bidang Kemahasiswaan/InformasiPendaftar/ValidasiAndCheck.jsx";
@@ -50,6 +51,8 @@ import FormPendaftaranDocumentKip from "./assets/Pages/Beasiswa/KIPKuliah/FormPe
 import BeasiswaDetail from "./assets/Pages/Admin/ManajemenBeasiswa/Detail.jsx";
 import PengaturanSistem from "./assets/Pages/Admin/PengaturanSistem/index.jsx";
 import ChangePassword from "./assets/Pages/Mahasiswa/ChangePassword/index.jsx";
+import AnnouncementDetail from "./assets/Pages/Bidang Kemahasiswaan/Pengumuman/Detail/index.jsx";
+import AnnouncementUpdate from "./assets/Pages/Bidang Kemahasiswaan/Pengumuman/Update/index.jsx";
 
 
 // Komponen Layout Wrapper
@@ -97,6 +100,8 @@ function Layout() {
         <Route path="/bidang/informasi-beasiswa" element={<InformasiBeasiswa />} />
         <Route path="/bidang/informasi-beasiswa/add" element={<AddBeasiswaBK />} />
         <Route path="/bidang/announcement" element={<AnnouncementBK />} />
+        <Route path="/bidang/announcement/detail/:uuid" element={<AnnouncementDetail />} />
+        <Route path="/bidang/announcement/update/:uuid" element={<AnnouncementUpdate />} />
         <Route path="/bidang/informasi-pendaftar" element={<InformasiPendaftar />} />
         <Route path="/bidang/informasi-pendaftar/data-pendaftar/:uuid" element={<DataPendaftar />} />
         <Route path="/bidang/informasi-pendaftar/data-pendaftar/validation-and-check/:uploadedBy" element={<ValidasiAndCheck />} />

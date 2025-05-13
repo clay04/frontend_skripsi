@@ -24,7 +24,7 @@ export const StudentList = () => {
           return;
         }
 
-        const response = await axios.get("http://103.31.39.151:9900/sms-mgmt/scholarship/get", {
+        const response = await axios.get("https://simbeasiswauk.site:9900/sms-mgmt/scholarship/get", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -72,7 +72,7 @@ export const StudentList = () => {
               faculty={`${student.major?.facultyName || "-"} / ${student.major?.majorName || "-"}`}
               name={`${student.masterUser?.lastName || ""}, ${student.masterUser?.firstName || ""}`}
               id={`${student.nim || "-"} / ${student.noRegistration || "-"}`}
-              uuid={student.uuid}  // <-- TAMBAH INI !!
+              uuid={student.masterUser?.uuid}  // <-- TAMBAH INI !!
               scholarshipType={student.scholarshipType || "-"}
             />
           ))

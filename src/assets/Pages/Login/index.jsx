@@ -1,4 +1,3 @@
-"use client";
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
@@ -20,6 +19,7 @@ function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [loginAttempts, setLoginAttempts] = useState(0); // Track login attempts
 
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
@@ -27,6 +27,13 @@ function Login() {
   useEffect(() => {
     document.getElementById("username").focus();
   }, []);
+
+  useEffect(() => {
+    console.log("Login attempts: ", loginAttempts);  // Log jumlah percobaan login
+    if (loginAttempts >= 3) {
+      setError("Anda sudah salah memasukkan password 3 kali. Silakan reset password Anda.");
+    }
+  }, [loginAttempts]); // Trigger error message after loginAttempts change
 
   const handleLogin = async () => {
     if (!userType || !username || !password) {
@@ -46,6 +53,7 @@ function Login() {
         body: JSON.stringify({
           username,
           password,
+          role_id: userType, // Send role_id here
         }),
       });
 
@@ -53,7 +61,7 @@ function Login() {
       const userData = data.output_schema?.result;
 
       if (response.ok && userData) {
-        // Simpan semua user data
+        // Simpan semua data pengguna
         localStorage.setItem("user", JSON.stringify(userData));
 
         // Simpan token secara terpisah jika ada
@@ -61,19 +69,47 @@ function Login() {
           localStorage.setItem("token", userData.token);
         }
 
-        // Update context
+        // Perbarui context
         login(userData);
 
-        // Redirect berdasarkan tipe user
-        if (userType === "admin") {
-          navigate("/admin/dashboard");
-        } else if (userType === "bidang-kemahasiswaan") {
-          navigate("/bidang-dashboard");
+        // Reset login attempts on successful login
+        setLoginAttempts(0);
+
+        // Cek role_id untuk menentukan arah redirect
+        const roleId = userData.user?.role?.role_id;
+        if (roleId === "00" || roleId === "01") {
+          // Admin
+          if (userType === "00" || userType === "01") {
+            navigate("/admin/dashboard");
+          } else {
+            setError("Anda tidak memiliki akses untuk login sebagai Admin.");
+          }
+        } else if (roleId === "02") {
+          // Bidang Kemahasiswaan
+          if (userType === "02") {
+            navigate("/bidang-dashboard");
+          } else {
+            setError("Anda tidak memiliki akses untuk login sebagai Bidang Kemahasiswaan.");
+          }
+        } else if (roleId === "03") {
+          // Mahasiswa
+          if (userType === "03") {
+            navigate("/mahasiswa/dashboard");
+          } else {
+            setError("Anda tidak memiliki akses untuk login sebagai Mahasiswa.");
+          }
         } else {
-          navigate("/mahasiswa/dashboard");
+          // Jika role_id tidak valid, tampilkan error
+          setError("Role tidak valid.");
         }
       } else {
-        setError("Login gagal: " + (data.error_schema?.error_message?.indonesian || "Terjadi kesalahan."));
+        // Periksa jika error adalah kata sandi salah
+        if (data.error_schema?.error_message?.indonesian === "Password salah") {
+          // Increment login attempts and trigger effect
+          setLoginAttempts((prevAttempts) => prevAttempts + 1);
+        } else {
+          setError("Login gagal: " + (data.error_schema?.error_message?.indonesian || "Terjadi kesalahan."));
+        }
       }
     } catch (err) {
       console.error(err);
@@ -89,11 +125,22 @@ function Login() {
         <img className="logologin" src={LogoUK} alt="Logo" />
         <div className="welcome-box">
           <h1>Welcome,</h1>
-          <h2>Universitas Klabat</h2>
+          <h2>Scholarship Management System</h2>
         </div>
         <div className="login-box">
           <h2 className="login-title">Login</h2>
-          {error && <div className="error-message">{error}</div>}
+          {error && (
+            <div className="error-message">
+              {error}{" "}
+              {loginAttempts >= 3 && (
+                <span>
+                  <Link to="/forget-password" className="forgot-password-link">
+                    Lupa Password?
+                  </Link>
+                </span>
+              )}
+            </div>
+          )}
           <div className="login-form">
             <div className="dropdown-container-user">
               <select
@@ -102,9 +149,9 @@ function Login() {
                 value={userType}
               >
                 <option value="">Pilih Tipe Pengguna</option>
-                <option value="admin">Admin</option>
-                <option value="bidang-kemahasiswaan">Bidang Kemahasiswaan</option>
-                <option value="mahasiswa">Mahasiswa</option>
+                <option value="00">Admin</option>
+                <option value="02">Bidang Kemahasiswaan</option>
+                <option value="03">Mahasiswa</option>
               </select>
             </div>
 
@@ -139,7 +186,7 @@ function Login() {
             </Link>
 
             <button onClick={handleLogin} className="login-button" disabled={loading}>
-              {loading ? "Logging in..." : "matthew"}
+              {loading ? "Logging in..." : "Login"}
             </button>
 
             <div className="login-footer">

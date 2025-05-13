@@ -10,7 +10,7 @@ export const StudentDetailsAndParentInformation = () => {
   const [loading, setLoading] = useState(true);
   const [approvalStatus, setApprovalStatus] = useState("IN_PROGRESS");
   const [documentStatus, setDocumentStatus] = useState("Belum Lengkap");
-  const [validationStatus, setValidationStatus] = useState("Perlu Validasi");
+  //const [validationStatus, setValidationStatus] = useState("Perlu Validasi");
   const [autoRejectedReason, setAutoRejectedReason] = useState("");
   const [autoRejected, setAutoRejected] = useState(false);
   const [canApprove, setCanApprove] = useState(false);
@@ -25,7 +25,7 @@ export const StudentDetailsAndParentInformation = () => {
         return;
       }
   
-      const response = await apiClient.get(`/scholarship/detail?uuid=${uuid}`, {
+      const response = await apiClient.get(`/scholarship/detail?userUuid=${uuid}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
   
@@ -39,7 +39,7 @@ export const StudentDetailsAndParentInformation = () => {
       const records = docResponse.data?.output_schema?.records || [];
       const passFoto = records.find(doc => doc.category === "Pass Foto");
       if (passFoto) {
-        setPhotoUrl(`http://103.31.39.151:9900/sms-mgmt/document/download?uuid=${passFoto.uuid}`);
+        setPhotoUrl(`https://simbeasiswauk.site:9900/sms-mgmt/document/preview?uuid=${passFoto.uuid}`);
       }
   
       // Cek kelengkapan dokumen berdasarkan response backend
@@ -210,7 +210,7 @@ export const StudentDetailsAndParentInformation = () => {
             </div>
 
             <div className="ms-4">
-              <Link to={`/bidang/informasi-pendaftar/data-pendaftar/validation-and-check/${student.uuid}`} className="btn btn-primary fw-semibold mb-3 px-3">
+              <Link to={`/bidang/informasi-pendaftar/data-pendaftar/validation-and-check/${student.master_user?.uuid}`} className="btn btn-primary fw-semibold mb-3 px-3">
                 Validasi Data dan Dokumen
               </Link>
               <br />
